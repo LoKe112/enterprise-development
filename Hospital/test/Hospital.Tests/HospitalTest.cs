@@ -17,7 +17,7 @@ public class HospitalTests
 
 
     [Fact]
-    public void GetDoctorsWithExperienceAtLeast10Years_ShouldReturnCorrectResults()
+    public void GetDoctorsWithExperienceAtLeast10Years()
     {
 
         var experiencedDoctors = _data.Doctors
@@ -31,7 +31,7 @@ public class HospitalTests
     }
 
     [Fact]
-    public void GetPatientsByDoctor_OrderedByFullName_ShouldReturnCorrectResults()
+    public void GetPatientsByDoctor_OrderedByFullName()
     {
 
         var targetDoctor = _data.Doctors[0];
@@ -52,7 +52,7 @@ public class HospitalTests
     }
 
     [Fact]
-    public void GetFollowUpAppointmentsCountLastMonth_ShouldReturnCorrectCount()
+    public void GetFollowUpAppointmentsCountLastMonth()
     {
 
         var lastMonthStart = DateTime.Now.AddMonths(-1);
@@ -70,7 +70,7 @@ public class HospitalTests
     }
 
     [Fact]
-    public void GetPatientsOver30WithMultipleDoctors_OrderedByBirthDate_ShouldReturnCorrectResults()
+    public void GetPatientsOver30WithMultipleDoctors_OrderedByBirthDate()
     {
 
         var patientsWithMultipleDoctors = (from a in _data.Appointments
@@ -107,7 +107,7 @@ public class HospitalTests
     }
 
     [Fact]
-    public void GetAppointmentsInSelectedRoomThisMonth_ShouldReturnCorrectResults()
+    public void GetAppointmentsInSelectedRoomThisMonth()
     {            
         const string targetRoom = "101à";
         var currentMonthStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
