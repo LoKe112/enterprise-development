@@ -163,6 +163,32 @@ private List<Appointment> InitAppointments(List<Patient> patients,
                    AppointmentDateTime = new DateTime(2024, 3, 18, 11, 30,
                                                       0),
                    RoomNumber = "302", IsFollowUp = true },
+ new Appointment { Id = 5, PatientId = 5, DoctorId = 6,
+                   AppointmentDateTime = new DateTime(2024, 3, 16, 14, 30,
+                                                      0),
+                   RoomNumber = "205b", IsFollowUp = true },
 
+ new Appointment { Id = 6, PatientId = 6, DoctorId = 5,
+                   AppointmentDateTime = new DateTime(2024, 4, 17, 9, 0, 0),
+                   RoomNumber = "111", IsFollowUp = false },
+
+ new Appointment { Id = 7, PatientId = 9, DoctorId = 7,
+                   AppointmentDateTime = new DateTime(2024, 5, 18, 11, 30,
+                                                      0),
+                   RoomNumber = "402", IsFollowUp = true },
+
+ new Appointment { Id = 8, PatientId = 8, DoctorId = 8,
+                   AppointmentDateTime = new DateTime(2024, 2, 16, 14, 30,
+                                                      0),
+                   RoomNumber = "217a", IsFollowUp = true },
+
+ new Appointment { Id = 9, PatientId = 7, DoctorId = 9,
+                   AppointmentDateTime = new DateTime(2024, 8, 17, 9, 0, 0),
+                   RoomNumber = "102", IsFollowUp = false },
+
+ new Appointment { Id = 10, PatientId = 10, DoctorId = 10,
+                   AppointmentDateTime = new DateTime(2025, 9, 18, 11, 30,
+                                                      0),
+                   RoomNumber = "302", IsFollowUp = true },
 ];
 }
