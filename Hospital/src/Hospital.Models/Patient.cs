@@ -1,0 +1,51 @@
+﻿using System.Reflection;
+
+namespace Hospital.Models;
+
+public class Patient
+{
+    /// <summary>
+    /// Gets or sets the unique identifier for the patient.
+    /// </summary>
+    public required int Id { get; set; }
+
+    /// <summary>
+    /// Passport number of the patient. Consists of 6 digits.
+    /// </summary>
+    public required string PassportNumber { get; set; }
+
+    /// <summary>
+    /// Full name of the patient in the format "Last Name First Name Middle Name".
+    /// </summary>
+    public required string FullName { get; set; }
+
+    /// <summary>
+    /// Gender of the patient.
+    /// </summary>
+    public required Gender Gender { get; set; }
+
+    /// <summary>
+    /// Date of birth of the patient.
+    /// </summary>
+    public required DateTime DateOfBirth { get; set; }
+
+    /// <summary>
+    /// Residential address of the patient.
+    /// </summary>
+    public required string Address { get; set; }
+    
+    /// <summary>
+    /// The blood group of the patient.
+    /// </summary>
+    public required BloodGroup BloodGroup { get; set; }
+    
+    /// <summary>
+    ///The Rh factor of the patient's blood.
+    /// </summary>
+    public required RhFactor RhFactor { get; set; }
+    
+    /// <summary>
+    /// The contact phone number of the patient.
+    /// </summary>
+    public required string PhoneNumber { get; set; }    
+}

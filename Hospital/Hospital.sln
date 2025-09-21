@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.Models", "src\Hospital.Models\Hospital.Models.csproj", "{54159B3B-FD72-4C9D-973E-66FA701A9776}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hospital.Tests", "test\Hospital.Tests\Hospital.Tests.csproj", "{66C4A707-10AD-4E0A-A156-56E349362DA0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{54159B3B-FD72-4C9D-973E-66FA701A9776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54159B3B-FD72-4C9D-973E-66FA701A9776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54159B3B-FD72-4C9D-973E-66FA701A9776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54159B3B-FD72-4C9D-973E-66FA701A9776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66C4A707-10AD-4E0A-A156-56E349362DA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66C4A707-10AD-4E0A-A156-56E349362DA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66C4A707-10AD-4E0A-A156-56E349362DA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66C4A707-10AD-4E0A-A156-56E349362DA0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A887022-7A96-49BA-81CC-5825003A28D9}
+	EndGlobalSection
+EndGlobal
