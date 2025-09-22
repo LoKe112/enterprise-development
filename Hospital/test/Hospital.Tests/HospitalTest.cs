@@ -1,9 +1,3 @@
-using Hospital.Tests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Xunit;
-using Hospital.Models;
 namespace Hospital.Tests;
 
 public class HospitalTests

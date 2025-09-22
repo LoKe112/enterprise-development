@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Hospital.Models;
+﻿using Hospital.Models;
 
 namespace Hospital.Tests; 
 public class HospitalDataSeed {
@@ -30,35 +27,35 @@ private List<Specialization> InitSpecializations() =>
 private List<Patient> InitPatients() =>
 [new Patient { Id = 1, PassportNumber = "143649",
                FullName = "Ряхов Вячеслав Вячеславович", Gender = Gender.Male,
-               DateOfBirth = new DateTime(1980, 5, 15),
+               DateOfBirth = new DateOnly(1980, 5, 15),
                Address = "ул. Карбышева, д. 81, кв. 46",
                BloodGroup = BloodGroup.A, RhFactor = RhFactor.Positive,
                PhoneNumber = "+79372165498" },
 
  new Patient { Id = 2, PassportNumber = "234567",
                FullName = "Петрова Мария Сергеевна", Gender = Gender.Female,
-               DateOfBirth = new DateTime(1990, 8, 22),
+               DateOfBirth = new DateOnly(1990, 8, 22),
                Address = "ул. Ленина, д. 25, кв. 12",
                BloodGroup = BloodGroup.O, RhFactor = RhFactor.Negative,
                PhoneNumber = "+79279037779" },
 
  new Patient { Id = 3, PassportNumber = "345678",
                FullName = "Сидоров Петр Алексеевич", Gender = Gender.Male,
-               DateOfBirth = new DateTime(1985, 3, 10),
+               DateOfBirth = new DateOnly(1985, 3, 10),
                Address = "пр. Победы, д. 15, кв. 8",
                BloodGroup = BloodGroup.B, RhFactor = RhFactor.Positive,
                PhoneNumber = "+79279037780" },
 
  new Patient { Id = 4, PassportNumber = "456789",
                FullName = "Козлова Анна Викторовна", Gender = Gender.Female,
-               DateOfBirth = new DateTime(1992, 12, 5),
+               DateOfBirth = new DateOnly(1992, 12, 5),
                Address = "ул. Советская, д. 7, кв. 3",
                BloodGroup = BloodGroup.AB, RhFactor = RhFactor.Negative,
                PhoneNumber = "+79279037781" },
 
  new Patient { Id = 5, PassportNumber = "567890",
                FullName = "Николаев Дмитрий Олегович", Gender = Gender.Male,
-               DateOfBirth = new DateTime(1978, 7, 18),
+               DateOfBirth = new DateOnly(1978, 7, 18),
                Address = "ул. Гагарина, д. 33, кв. 15",
                BloodGroup = BloodGroup.A, RhFactor = RhFactor.Positive,
                PhoneNumber = "+79279037782" },
@@ -66,14 +63,14 @@ private List<Patient> InitPatients() =>
  new Patient { Id = 6, PassportNumber = "678901",
                FullName = "Орлова Екатерина Игоревна",
                Gender = Gender.Female,
-               DateOfBirth = new DateTime(1988, 2, 28),
+               DateOfBirth = new DateOnly(1988, 2, 28),
                Address = "ул. Мира, д. 12, кв. 9",
                BloodGroup = BloodGroup.O, RhFactor = RhFactor.Positive,
                PhoneNumber = "+79279037783" },
 
  new Patient { Id = 7, PassportNumber = "789012",
                FullName = "Павлов Сергей Николаевич", Gender = Gender.Male,
-               DateOfBirth = new DateTime(1995, 9, 14),
+               DateOfBirth = new DateOnly(1995, 9, 14),
                Address = "пр. Независимости, д. 45, кв. 22",
                BloodGroup = BloodGroup.B, RhFactor = RhFactor.Negative,
                PhoneNumber = "+79279037784" },
@@ -81,7 +78,7 @@ private List<Patient> InitPatients() =>
  new Patient { Id = 8, PassportNumber = "890123",
                FullName = "Романова Ольга Дмитриевна",
                Gender = Gender.Female,
-               DateOfBirth = new DateTime(1983, 11, 30),
+               DateOfBirth = new DateOnly(1983, 11, 30),
                Address = "ул. Фрунзе, д. 18, кв. 6",
                BloodGroup = BloodGroup.A, RhFactor = RhFactor.Positive,
                PhoneNumber = "+79279037785" },
@@ -89,7 +86,7 @@ private List<Patient> InitPatients() =>
  new Patient { Id = 9, PassportNumber = "901234",
                FullName = "Семенов Александр Петрович",
                Gender = Gender.Male,
-               DateOfBirth = new DateTime(1975, 4, 25),
+               DateOfBirth = new DateOnly(1975, 4, 25),
                Address = "ул. Кирова, д. 27, кв. 11",
                BloodGroup = BloodGroup.AB, RhFactor = RhFactor.Positive,
                PhoneNumber = "+79279037786" },
@@ -97,7 +94,7 @@ private List<Patient> InitPatients() =>
  new Patient { Id = 10, PassportNumber = "012345",
                FullName = "Тихонова Ирина Васильевna",
                Gender = Gender.Female,
-               DateOfBirth = new DateTime(1998, 6, 8),
+               DateOfBirth = new DateOnly(1998, 6, 8),
                Address = "ул. Пушкинская, д. 9, кв. 4",
                BloodGroup = BloodGroup.O, RhFactor = RhFactor.Negative,
                PhoneNumber = "+79279037787" }];

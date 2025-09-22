@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace Hospital.Models;
+﻿namespace Hospital.Models;
 
 public class Patient
 {
@@ -10,7 +8,7 @@ public class Patient
     public required int Id { get; set; }
 
     /// <summary>
-    /// Passport number of the patient. Consists of 6 digits.
+    /// Passport number of the patient. Consists of 4 then 6 digits.
     /// </summary>
     public required string PassportNumber { get; set; }
 
@@ -27,7 +25,7 @@ public class Patient
     /// <summary>
     /// Date of birth of the patient.
     /// </summary>
-    public required DateTime DateOfBirth { get; set; }
+    public required DateOnly DateOfBirth { get; set; }
 
     /// <summary>
     /// Residential address of the patient.

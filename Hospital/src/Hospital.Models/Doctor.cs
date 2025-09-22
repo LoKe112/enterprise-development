@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hospital.Models;
+﻿namespace Hospital.Models;
 
 public class Doctor
 {
@@ -14,7 +8,7 @@ public class Doctor
     public required int Id { get; set; }
     
     /// <summary>
-    /// Passport number of the doctor. Consists of 6 digits.
+    /// Passport number of the doctor. Consists of 4 the 6 digits.
     /// </summary>
     public required string PassportNumber { get; set; }
 
@@ -37,7 +31,4 @@ public class Doctor
     /// Number of years of professional experience of the doctor.
     /// </summary>
     public required int ExperienceYears { get; set; }
-
 }
-
-

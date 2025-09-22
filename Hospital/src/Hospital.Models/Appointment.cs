@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hospital.Models;
+﻿namespace Hospital.Models;
 
 public class Appointment
 {
@@ -29,7 +23,7 @@ public class Appointment
     public required bool IsFollowUp { get; set; }
 
     /// <summary>
-    /// Identifier of the patient associated with this appointmen
+    /// Identifier of the patient associated with this appointment.
     /// </summary>
     public required int PatientId { get; set; }
 
