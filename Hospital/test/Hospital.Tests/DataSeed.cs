@@ -4,6 +4,7 @@ namespace Hospital.Tests;
 
 public class HospitalDataSeed
 {
+
     public static List<Specialization> Specializations { get; } =
     [
         new Specialization { Id = 1, Name = "Терапевт" },
@@ -14,7 +15,6 @@ public class HospitalDataSeed
         new Specialization { Id = 6, Name = "Стоматолог" },
         new Specialization { Id = 7, Name = "Педиатр" },
         new Specialization { Id = 8, Name = "Дерматолог" }
-
     ];
 
     public List<Patient> Patients { get; } =
@@ -22,7 +22,7 @@ public class HospitalDataSeed
         new Patient
         {
             Id = 1,
-            PassportNumber = "143649",
+            PassportNumber = "5321 143649",
             FullName = "Ряхов Вячеслав Вячеславович",
             Gender = Gender.Male,
             DateOfBirth = new DateOnly(2001, 9, 13),
@@ -35,7 +35,7 @@ public class HospitalDataSeed
         new Patient
         {
             Id = 2,
-            PassportNumber = "234567",
+            PassportNumber = "1234 234567",
             FullName = "Петрова Мария Сергеевна",
             Gender = Gender.Female,
             DateOfBirth = new DateOnly(1980, 5, 17),
@@ -48,7 +48,7 @@ public class HospitalDataSeed
         new Patient
         {
             Id = 3,
-            PassportNumber = "345678",
+            PassportNumber = "4567 345678",
             FullName = "Сидоров Петр Алексеевич",
             Gender = Gender.Male,
             DateOfBirth = new DateOnly(1985, 3, 10),
@@ -61,7 +61,7 @@ public class HospitalDataSeed
         new Patient
         {
             Id = 4,
-            PassportNumber = "456789",
+            PassportNumber = "2893 456789",
             FullName = "Козлова Анна Викторовна",
             Gender = Gender.Female,
             DateOfBirth = new DateOnly(1992, 12, 5),
@@ -74,7 +74,7 @@ public class HospitalDataSeed
         new Patient
         {
             Id = 5,
-            PassportNumber = "567890",
+            PassportNumber = " 6745 567890",
             FullName = "Николаев Дмитрий Олегович",
             Gender = Gender.Male,
             DateOfBirth = new DateOnly(1978, 7, 18),
@@ -87,7 +87,7 @@ public class HospitalDataSeed
         new Patient
         {
             Id = 6,
-            PassportNumber = "678901",
+            PassportNumber = "2230 678901",
             FullName = "Орлова Екатерина Игоревна",
             Gender = Gender.Female,
             DateOfBirth = new DateOnly(1988, 2, 28),
@@ -100,7 +100,7 @@ public class HospitalDataSeed
         new Patient
         {
             Id = 7,
-            PassportNumber = "789012",
+            PassportNumber = "1245 789012",
             FullName = "Павлов Сергей Николаевич", Gender = Gender.Male,
             DateOfBirth = new DateOnly(1995, 9, 14),
             Address = "пр. Независимости, д. 45, кв. 22",
@@ -112,7 +112,7 @@ public class HospitalDataSeed
         new Patient
         {
             Id = 8,
-            PassportNumber = "890123",
+            PassportNumber = "6748 890123",
             FullName = "Романова Ольга Дмитриевна",
             Gender = Gender.Female,
             DateOfBirth = new DateOnly(1983, 11, 30),
@@ -125,7 +125,7 @@ public class HospitalDataSeed
         new Patient
         {
             Id = 9,
-            PassportNumber = "901234",
+            PassportNumber = "1100 901234",
             FullName = "Семенов Александр Петрович",
             Gender = Gender.Male,
             DateOfBirth = new DateOnly(1975, 4, 25),
@@ -138,7 +138,7 @@ public class HospitalDataSeed
         new Patient
         {
             Id = 10,
-            PassportNumber = "012345",
+            PassportNumber = "4232 012345",
             FullName = "Тихонова Ирина Васильевna",
             Gender = Gender.Female,
             DateOfBirth = new DateOnly(1998, 6, 8),
@@ -148,12 +148,13 @@ public class HospitalDataSeed
             PhoneNumber = "+79279037787"
         }
     ];
+
     public List<Doctor> Doctors { get; } =
     [
         new Doctor
         {
             Id = 1,
-            PassportNumber = "100001",
+            PassportNumber = "6211 100001",
             FullName = "Сидоров Алексей Петрович",
             YearOfBirth = 1975,
             Specialization = Specializations[0],
@@ -163,7 +164,7 @@ public class HospitalDataSeed
         new Doctor
         {
             Id = 2,
-            PassportNumber = "100002",
+            PassportNumber = "6311 100002",
             FullName = "Кузнецова Елена Владимировна",
             YearOfBirth = 1980,
             Specialization = Specializations[2],
@@ -173,7 +174,7 @@ public class HospitalDataSeed
         new Doctor
         {
             Id = 3,
-            PassportNumber = "100003",
+            PassportNumber = "6411 100003",
             FullName = "Петров Дмитрий Иванович",
             YearOfBirth = 1982,
             Specialization = Specializations[1],
@@ -182,7 +183,7 @@ public class HospitalDataSeed
 
         new Doctor {
             Id = 4,
-            PassportNumber = "100004",
+            PassportNumber = "6511 100004",
             FullName = "Павлова Ольга Сергеевна",
             YearOfBirth = 1978,
             Specialization = Specializations[3],
@@ -191,7 +192,7 @@ public class HospitalDataSeed
         new Doctor
         {
             Id = 5,
-            PassportNumber = "100005",
+            PassportNumber = "6611 100005",
             FullName = "Попов Михаил Александрович",
             YearOfBirth = 1985,
             Specialization = Specializations[4],
@@ -200,7 +201,7 @@ public class HospitalDataSeed
 
         new Doctor {
             Id = 6,
-            PassportNumber = "100006",
+            PassportNumber = "6711 100006",
             FullName = "Смирнова Татьяна Николаевна",
             YearOfBirth = 1990,
             Specialization = Specializations[5],
@@ -210,7 +211,7 @@ public class HospitalDataSeed
         new Doctor
         {
             Id = 7,
-            PassportNumber = "100007",
+            PassportNumber = "6811 100007",
             FullName = "Васильев Андрей Викторович",
             YearOfBirth = 1970,
             Specialization = Specializations[6],
@@ -220,7 +221,7 @@ public class HospitalDataSeed
         new Doctor
         {
             Id = 8,
-            PassportNumber = "100008",
+            PassportNumber = "6911 100008",
             FullName = "Федорова Наталья Игоревна",
             YearOfBirth = 1988,
             Specialization = Specializations[7],
@@ -230,7 +231,7 @@ public class HospitalDataSeed
         new Doctor
         {
             Id = 9,
-            PassportNumber = "100009",
+            PassportNumber = "6011 100009",
             FullName = "Алексеев Геннадий Степанович",
             YearOfBirth = 1965,
             Specialization = Specializations[0],
@@ -240,13 +241,14 @@ public class HospitalDataSeed
         new Doctor
         {
             Id = 10,
-            PassportNumber = "100010",
+            PassportNumber = "6723 100010",
             FullName = "Дмитриева Светлана Олеговна",
             YearOfBirth = 1983,
             Specialization = Specializations[2],
             ExperienceYears = 14
         }
     ];
+
     public List<Appointment> Appointments { get; } =
     [
         new Appointment
@@ -279,9 +281,9 @@ public class HospitalDataSeed
         new Appointment
         { 
             Id = 4,
-            PatientId = 1, 
+            PatientId = 2, 
             DoctorId = 4,
-            AppointmentDateTime = new DateTime(2024, 3, 18, 11, 30,0),
+            AppointmentDateTime = new DateTime(2025, 8, 27, 11, 30,0),
             RoomNumber = "302", IsFollowUp = true 
         },
 
@@ -289,7 +291,7 @@ public class HospitalDataSeed
         { 
             Id = 5, 
             PatientId = 5, 
-            DoctorId = 6,
+            DoctorId = 1,
             AppointmentDateTime = new DateTime(2024, 3, 16, 14, 30,0),
             RoomNumber = "205b", IsFollowUp = true
         },
@@ -299,7 +301,7 @@ public class HospitalDataSeed
             Id = 6,
             PatientId = 6,
             DoctorId = 5,
-            AppointmentDateTime = new DateTime(2024, 4, 17, 9, 0, 0),
+            AppointmentDateTime = new DateTime(2025, 9, 12, 9, 0, 0),
             RoomNumber = "111", IsFollowUp = false
         },
 
@@ -308,7 +310,7 @@ public class HospitalDataSeed
             Id = 7, 
             PatientId = 9, 
             DoctorId = 7,
-            AppointmentDateTime = new DateTime(2024, 5, 18, 11, 30,0),
+            AppointmentDateTime = new DateTime(2025, 9, 3, 11, 30,0),
             RoomNumber = "402", IsFollowUp = true 
         },
 
@@ -336,7 +338,7 @@ public class HospitalDataSeed
             PatientId = 10, 
             DoctorId = 10,
             AppointmentDateTime = new DateTime(2025, 9, 18, 11, 30,0),
-            RoomNumber = "302", IsFollowUp = true 
+            RoomNumber = "101a", IsFollowUp = true 
         }
     ];
 }
