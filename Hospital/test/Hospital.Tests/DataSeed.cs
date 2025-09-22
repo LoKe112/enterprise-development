@@ -2,9 +2,14 @@
 
 namespace Hospital.Tests;
 
+/// <summary>
+/// Seeds test data to hospital models.
+/// </summary>
 public class HospitalDataSeed
 {
-
+    /// <summary>
+    /// List of seeded doctors specializations.
+    /// </summary>
     public static List<Specialization> Specializations { get; } =
     [
         new Specialization { Id = 1, Name = "Терапевт" },
@@ -17,6 +22,9 @@ public class HospitalDataSeed
         new Specialization { Id = 8, Name = "Дерматолог" }
     ];
 
+    /// <summary>
+    /// List of seeded hospital patients.
+    /// </summary>
     public List<Patient> Patients { get; } =
     [
         new Patient
@@ -149,6 +157,9 @@ public class HospitalDataSeed
         }
     ];
 
+    /// <summary>
+    /// List of seeded hospital doctors.
+    /// </summary>
     public List<Doctor> Doctors { get; } =
     [
         new Doctor
@@ -249,6 +260,9 @@ public class HospitalDataSeed
         }
     ];
 
+    /// <summary>
+    /// List of seeded hospital appointments.
+    /// </summary>
     public List<Appointment> Appointments { get; } =
     [
         new Appointment

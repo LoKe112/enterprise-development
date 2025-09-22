@@ -1,11 +1,13 @@
 namespace Hospital.Tests;
 
 /// <summary>
-/// Unit tests for Hospital.Models
+/// Unit tests for Hospital.Models.
 /// </summary>
 public class HospitalTests(HospitalDataSeed seed) : IClassFixture<HospitalDataSeed>
 {
-
+    /// <summary>
+    /// Test that count doctors with at least 10 years of expirience.
+    /// </summary>
     [Fact]
     public void GetDoctorsWithExperienceAtLeast10Years()
     {
@@ -20,6 +22,9 @@ public class HospitalTests(HospitalDataSeed seed) : IClassFixture<HospitalDataSe
         Assert.Equal(expectedCount, experiencedDoctors.Count);
     }
 
+    /// <summary>
+    /// Tests retrieving patients for specific doctor ordered by name.
+    /// </summary>
     [Fact]
     public void GetPatientsByDoctorOrderedByFullName()
     {
@@ -39,6 +44,9 @@ public class HospitalTests(HospitalDataSeed seed) : IClassFixture<HospitalDataSe
         Assert.True(doctorPatients.SequenceEqual(doctorPatients.OrderBy(p => p.FullName)));
     }
 
+    /// <summary>
+    /// Tests counting follow-up appointments in last month.
+    /// </summary>
     [Fact]
     public void GetFollowUpAppointmentsCountLastMonth()
     {        
@@ -55,6 +63,9 @@ public class HospitalTests(HospitalDataSeed seed) : IClassFixture<HospitalDataSe
         Assert.Equal(expectedCount, followUpCount);
     }
 
+    /// <summary>
+    /// Tests finding patients over 30 with multiple doctors ordered by birth date.
+    /// </summary>
     [Fact]
     public void GetPatientsOver30WithMultipleDoctorsOrderedByBirthDate()
     {
@@ -78,6 +89,9 @@ public class HospitalTests(HospitalDataSeed seed) : IClassFixture<HospitalDataSe
 
     }
 
+    /// <summary>
+    /// Tests retrieving appointments in specific room for current month.
+    /// </summary>
     [Fact]
     public void GetAppointmentsInSelectedRoomThisMonth()
     {
