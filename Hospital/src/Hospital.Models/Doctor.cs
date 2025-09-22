@@ -8,7 +8,7 @@ public class Doctor
     public required int Id { get; set; }
     
     /// <summary>
-    /// Passport number of the doctor. Consists of 4 the 6 digits.
+    /// Passport number of the doctor. Consists of 4 then 6 digits.
     /// </summary>
     public required string PassportNumber { get; set; }
 

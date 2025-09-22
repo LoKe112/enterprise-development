@@ -192,13 +192,15 @@ public class HospitalDataSeed
             ExperienceYears = 12
         },
 
-        new Doctor {
+        new Doctor
+        {
             Id = 4,
             PassportNumber = "6511 100004",
             FullName = "Павлова Ольга Сергеевна",
             YearOfBirth = 1978,
             Specialization = Specializations[3],
-            ExperienceYears = 18 },
+            ExperienceYears = 18
+        },
 
         new Doctor
         {
