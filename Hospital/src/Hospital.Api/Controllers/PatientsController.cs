@@ -8,28 +8,28 @@ namespace Hospital.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class SpecializationController : ControllerBase
+public class PatientsController : ControllerBase
 {
-    private readonly ILogger<SpecializationController> _logger;
-    private readonly ISpecializationService _service;
+    private readonly ILogger<PatientsController> _logger;
+    private readonly IPatientService _service;
 
-    public SpecializationController(ILogger<SpecializationController> logger, ISpecializationService service)
+    public PatientsController(ILogger<PatientsController> logger, IPatientService service)
     {
         _logger = logger;
         _service = service;
     }
 
-    /// <summary>Returns all specializations.</summary>
+    /// <summary>Returns all patients.</summary>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<List<SpecializationResponse>>> GetAll()
+    public async Task<ActionResult<List<PatientResponse>>> GetAll()
     {
-        _logger.LogInformation("Called GetAll in SpecializationController");
+        _logger.LogInformation("Called GetAll in PatientController");
         try
         {
-            List<Specialization> specializations = await _service.GetAllSpecializationsAsync();
-            var response = specializations.Select(s => s.ToResponse()).ToList();
+            List<Patient> patients = await _service.GetAllPatientsAsync();
+            var response = patients.Select(s => s.ToResponse()).ToList();
             return Ok(response);
         }
         catch (Exception ex)
@@ -39,22 +39,22 @@ public class SpecializationController : ControllerBase
         }
     }
 
-    /// <summary>Returns a specialization by Id.</summary>
+    /// <summary>Returns a Patient by Id.</summary>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<SpecializationResponse>> GetById(Guid id)
+    public async Task<ActionResult<PatientResponse>> GetById(Guid id)
     {
-        _logger.LogInformation("Called GetById in SpecializationController");
+        _logger.LogInformation("Called GetById in PatientController");
         try
         {
-            Specialization? specialization = await _service.GetSpecializationAsync(id);
-            if (specialization is null)
+            Patient? patient = await _service.GetPatientAsync(id);
+            if (patient is null)
             {
                 return NotFound();
             }
-            return Ok(specialization.ToResponse());
+            return Ok(patient.ToResponse());
         }
         catch (Exception ex)
         {
@@ -63,32 +63,27 @@ public class SpecializationController : ControllerBase
         }
     }
 
-    /// <summary>Creates a new specialization.</summary>
+    /// <summary>Creates a new Patient.</summary>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult> Create([FromBody] SpecializationRequest specializationDto)
+    public async Task<ActionResult> Create([FromBody] PatientRequest PatientDto)
     {
-        _logger.LogInformation("Called Create in SpecializationController");
+        _logger.LogInformation("Called Create in PatientController");
 
-        if (specializationDto is null)
+        if (PatientDto is null)
         {
-            return BadRequest("Specialization data is required.");
+            return BadRequest("Patient data is required.");
         }
 
         try
         {
-            Specialization id = await _service.CreateSpecializationAsync(specializationDto.ToDomain());
+            Patient entity = await _service.CreatePatientAsync(PatientDto.ToDomain());
             return CreatedAtAction(nameof(GetById), new
             {
-                id
+                entity.Id
             }, null);
-        }
-        catch (InvalidOperationException ex)
-        {
-            _logger.LogWarning(ex, "Validation failed during Create");
-            return BadRequest(ex.Message);
         }
         catch (Exception ex)
         {
@@ -97,26 +92,26 @@ public class SpecializationController : ControllerBase
         }
     }
 
-    /// <summary>Updates a specialization by Id.</summary>
+    /// <summary>Updates a Patient by Id.</summary>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult<SpecializationResponse>> Update(Guid id, [FromBody] SpecializationRequest specializationDto)
+    public async Task<ActionResult<PatientResponse>> Update(Guid id, [FromBody] PatientRequest PatientDto)
     {
-        _logger.LogInformation("Called Update in SpecializationController");
+        _logger.LogInformation("Called Update in PatientController");
 
-        if (specializationDto is null)
+        if (PatientDto is null)
         {
-            return BadRequest("Specialization data is required.");
+            return BadRequest("Patient data is required.");
         }
 
         try
         {
-            Specialization specializationToUpdate = specializationDto.ToDomain();
+            Patient patientToUpdate = PatientDto.ToDomain();
 
-            Specialization? updated = await _service.UpdateSpecializationAsync(id, specializationToUpdate);
+            Patient? updated = await _service.UpdatePatientAsync(id, patientToUpdate);
             if (updated is null)
             {
                 return NotFound();
@@ -131,18 +126,18 @@ public class SpecializationController : ControllerBase
         }
     }
 
-    /// <summary>Deletes a specialization by Id.</summary>
+    /// <summary>Deletes a Patient by Id.</summary>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> Delete(Guid id)
     {
-        _logger.LogInformation("Called Delete in SpecializationController");
+        _logger.LogInformation("Called Delete in PatientController");
 
         try
         {
-            var deleted = await _service.DeleteSpecializationAsync(id);
+            var deleted = await _service.DeletePatientAsync(id);
             if (!deleted)
             {
                 return NotFound();

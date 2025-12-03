@@ -10,7 +10,7 @@ public class Appointment
     /// <summary>
     /// Date and time when the appointment is scheduled.
     /// </summary>
-    public required DateTime AppointmentDateTime { get; set; }
+    public required DateTimeOffset AppointmentDateTime { get; set; }
 
     /// <summary>
     /// Room number where the appointment will take place.

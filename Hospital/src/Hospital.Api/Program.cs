@@ -1,10 +1,26 @@
+using Hospital.Domain.Models;
+using Hospital.Domain.Repositories.Abstractions;
+using Hospital.Domain.Services;
+using Hospital.Domain.Services.Abstractions;
 using Hospital.Infrastructure;
+using Hospital.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<DataSeeder>();
-builder.AddMySqlDbContext<HospitalDbContext>("HospitalDatabase");
+builder.AddMySqlDbContext<HospitalDbContext>("HospitalDatabase",
+    settings =>
+    {
+        settings.ServerVersion = "9.5.0";
+    });
+
+builder.Services.AddScoped<IRepository<Specialization>, SpecializationRepository>();
+builder.Services.AddScoped<IRepository<Doctor>, DoctorRepository>();
+
+builder.Services.AddScoped<ISpecializationService, SpecializationService>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -12,6 +28,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<HospitalDbContext>();
+    db.Database.Migrate();
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
