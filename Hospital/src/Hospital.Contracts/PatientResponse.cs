@@ -1,7 +1,8 @@
-﻿using System.Reflection;
+﻿namespace Hospital.Contracts;
 
-namespace Hospital.Contracts;
-
+/// <summary>
+/// Response
+/// </summary>
 public class PatientResponse
 {
     /// <summary>

@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddSingleton<DataSeeder>();
 builder.AddMySqlDbContext<HospitalDbContext>("HospitalDatabase",
     settings =>
@@ -18,12 +17,16 @@ builder.AddMySqlDbContext<HospitalDbContext>("HospitalDatabase",
 
 builder.Services.AddScoped<IRepository<Specialization>, SpecializationRepository>();
 builder.Services.AddScoped<IRepository<Doctor>, DoctorRepository>();
+builder.Services.AddScoped<IRepository<Appointment>, AppointmentRepository>();
+builder.Services.AddScoped<IRepository<Patient>, PatientRepository>();
 
 builder.Services.AddScoped<ISpecializationService, SpecializationService>();
+builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -36,7 +39,6 @@ var app = builder.Build();
 }
 
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

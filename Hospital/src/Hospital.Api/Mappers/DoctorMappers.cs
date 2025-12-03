@@ -3,7 +3,7 @@ using Hospital.Domain.Models;
 namespace Hospital.Api.Mappers;
 
 /// <summary>
-/// Provides mapping methods for doctors.
+/// Provides mapping methods for Patient.
 /// </summary>
 public static class DoctorsMapper
 {

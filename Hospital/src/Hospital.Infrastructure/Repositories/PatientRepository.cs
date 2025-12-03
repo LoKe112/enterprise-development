@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hospital.Infrastructure.Repositories;
 
+/// <summary>
+/// Repository implementation for managing doctors.
+/// </summary>
 public class PatientRepository : IRepository<Patient>
 {
     private readonly HospitalDbContext _dbContext;

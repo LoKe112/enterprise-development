@@ -1,5 +1,8 @@
 ﻿namespace Hospital.Contracts;
 
+/// <summary>
+/// Request
+/// </summary>
 public class DoctorRequest
 {
     /// <summary>

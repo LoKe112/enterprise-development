@@ -13,50 +13,82 @@ public static class PatientsMapper
             BloodGroup.A => BloodGroupDto.A,
             BloodGroup.O => BloodGroupDto.O,
             BloodGroup.B => BloodGroupDto.B,
-            BloodGroup.AB => BloodGroupDto.AB
+            BloodGroup.AB => BloodGroupDto.AB,
+            _ => throw new InvalidOperationException()
         };
 
-    public static BloodGroupDto ToResponse(this BloodGroup bloodGroup) =>
+    public static GenderDto ToDto(this Gender bloodGroup) =>
         bloodGroup switch
         {
-            BloodGroup.A => BloodGroupDto.A,
-            BloodGroup.O => BloodGroupDto.O,
-            BloodGroup.B => BloodGroupDto.B,
-            BloodGroup.AB => BloodGroupDto.AB
+            Gender.Male => GenderDto.Male,
+            Gender.Female => GenderDto.Female,
+            _ => throw new InvalidOperationException()
         };
 
+    public static RhFactorDto ToDto(this RhFactor bloodGroup) =>
+        bloodGroup switch
+        {
+            RhFactor.Positive => RhFactorDto.Positive,
+            RhFactor.Negative => RhFactorDto.Negative,
+            _ => throw new InvalidOperationException()
+        };
 
+    public static BloodGroup ToDomain(this BloodGroupDto bloodGroup) =>
+        bloodGroup switch
+        {
+            BloodGroupDto.A => BloodGroup.A,
+            BloodGroupDto.O => BloodGroup.O,
+            BloodGroupDto.B => BloodGroup.B,
+            BloodGroupDto.AB => BloodGroup.AB,
+            _ => throw new InvalidOperationException()
+        };
+
+    public static Gender ToDomain(this GenderDto bloodGroup) =>
+        bloodGroup switch
+        {
+            GenderDto.Male => Gender.Male,
+            GenderDto.Female => Gender.Female,
+            _ => throw new InvalidOperationException()
+        };
+
+    public static RhFactor ToDomain(this RhFactorDto bloodGroup) =>
+        bloodGroup switch
+        {
+            RhFactorDto.Positive => RhFactor.Positive,
+            RhFactorDto.Negative => RhFactor.Negative,
+            _ => throw new InvalidOperationException()
+        };
 
     /// <summary>
-    /// Converts an DoctortDto to an Doctor domain model.
+    /// Converts an PatientDto to an Patient domain model.
     /// </summary>
     public static Patient ToDomain(this PatientRequest request) =>
         new Patient
         {
             PassportNumber = request.PassportNumber,
             FullName = request.FullName,
-            Gender = request.Gender,
+            Gender = request.Gender.ToDomain(),
             DateOfBirth = request.DateOfBirth,
             Address = request.Address,
-            BloodGroup = request.BloodGroup,
-            RhFactor = request.RhFactor,
+            BloodGroup = request.BloodGroup.ToDomain(),
+            RhFactor = request.RhFactor.ToDomain(),
             PhoneNumber = request.PhoneNumber,
             Id = Guid.Empty
         };
 
     /// <summary>
-    /// Converts an Doctor to an DoctorResponseDto.
+    /// Converts an Patient to an PatientResponseDto.
     /// </summary>
-    public static DoctorResponse ToResponse(this Patient entity) =>
+    public static PatientResponse ToResponse(this Patient entity) =>
         new PatientResponse
         {
             PassportNumber = entity.PassportNumber,
             FullName = entity.FullName,
-            Gender = entity.Gender,
+            Gender = entity.Gender.ToDto(),
             DateOfBirth = entity.DateOfBirth,
             Address = entity.Address,
-            BloodGroup = entity.BloodGroup,
-            RhFactor = entity.RhFactor,
+            BloodGroup = entity.BloodGroup.ToDto(),
+            RhFactor = entity.RhFactor.ToDto(),
             PhoneNumber = entity.PhoneNumber,
             Id = entity.Id
         };
