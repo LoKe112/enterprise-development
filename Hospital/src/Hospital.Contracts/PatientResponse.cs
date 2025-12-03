@@ -1,11 +1,13 @@
-﻿namespace Hospital.Models;
+﻿using System.Reflection;
 
-public class Patient
+namespace Hospital.Contracts;
+
+public class PatientResponse
 {
     /// <summary>
     /// Gets or sets the unique identifier for the patient.
     /// </summary>
-    public required int Id { get; set; }
+    public required Guid Id { get; set; }
 
     /// <summary>
     /// Passport number of the patient. Consists of 4 then 6 digits.
@@ -20,7 +22,7 @@ public class Patient
     /// <summary>
     /// Gender of the patient.
     /// </summary>
-    public required Gender Gender { get; set; }
+    public required GenderDto Gender { get; set; }
 
     /// <summary>
     /// Date of birth of the patient.
@@ -31,19 +33,19 @@ public class Patient
     /// Residential address of the patient.
     /// </summary>
     public required string Address { get; set; }
-    
+
     /// <summary>
     /// The blood group of the patient.
     /// </summary>
-    public required BloodGroup BloodGroup { get; set; }
-    
+    public required BloodGroupDto BloodGroup { get; set; }
+
     /// <summary>
     ///The Rh factor of the patient's blood.
     /// </summary>
-    public required RhFactor RhFactor { get; set; }
-    
+    public required RhFactorDto RhFactor { get; set; }
+
     /// <summary>
     /// The contact phone number of the patient.
     /// </summary>
-    public required string PhoneNumber { get; set; }    
+    public required string PhoneNumber { get; set; }
 }

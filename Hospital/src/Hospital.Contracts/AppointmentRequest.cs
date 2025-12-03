@@ -1,12 +1,7 @@
-﻿namespace Hospital.Models;
+﻿namespace Hospital.Contracts;
 
-public class Appointment
+public class AppointmentRequest
 {
-    /// <summary>
-    /// Unique identifier for the appointment.
-    /// </summary>
-    public required int Id { get; set; }
-
     /// <summary>
     /// Date and time when the appointment is scheduled.
     /// </summary>
@@ -25,10 +20,10 @@ public class Appointment
     /// <summary>
     /// Identifier of the patient associated with this appointment.
     /// </summary>
-    public required int PatientId { get; set; }
+    public required Guid PatientId { get; set; }
 
     /// <summary>
     /// Identifier of the doctor associated with this appointment.
     /// </summary>
-    public required int DoctorId { get; set; }
+    public required Guid DoctorId { get; set; }
 }

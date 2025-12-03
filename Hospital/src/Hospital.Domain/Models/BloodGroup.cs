@@ -1,4 +1,4 @@
-﻿namespace Hospital.Models;
+﻿namespace Hospital.Domain.Models;
 
 /// <summary>
 /// Represents the blood type of a patient.

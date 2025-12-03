@@ -1,12 +1,7 @@
-﻿namespace Hospital.Models;
+﻿namespace Hospital.Contracts;
 
-public class Doctor
+public class DoctorRequest
 {
-    /// <summary>
-    /// Unique identifier for the doctor.
-    /// </summary>
-    public required int Id { get; set; }
-    
     /// <summary>
     /// Passport number of the doctor. Consists of 4 then 6 digits.
     /// </summary>
@@ -25,7 +20,7 @@ public class Doctor
     /// <summary>
     /// Medical specialization of the doctor.
     /// </summary>
-    public required Specialization Specialization { get; set; }
+    public required Guid SpecializationId { get; set; }
 
     /// <summary>
     /// Number of years of professional experience of the doctor.

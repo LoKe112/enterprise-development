@@ -1,11 +1,11 @@
-﻿namespace Hospital.Models;
+﻿namespace Hospital.Domain.Models;
 
 public class Specialization
 {
     /// <summary>
     /// Unique identifier for the medical specialization.
     /// </summary>
-    public required int Id { get; set; }
+    public required Guid Id { get; set; }
 
     /// <summary>
     /// Name of the medical specialization.

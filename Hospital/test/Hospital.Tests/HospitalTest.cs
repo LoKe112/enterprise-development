@@ -1,9 +1,10 @@
+using Hospital.Infrastructure;
 namespace Hospital.Tests;
 
 /// <summary>
 /// Unit tests for Hospital.Models.
 /// </summary>
-public class HospitalTests(HospitalDataSeed seed) : IClassFixture<HospitalDataSeed>
+public class HospitalTests(DataSeeder seed) : IClassFixture<DataSeeder>
 {
     /// <summary>
     /// Test that count doctors with at least 10 years of expirience.
@@ -49,11 +50,11 @@ public class HospitalTests(HospitalDataSeed seed) : IClassFixture<HospitalDataSe
     /// </summary>
     [Fact]
     public void GetFollowUpAppointmentsCountLastMonth()
-    {        
-        var currentDate = new DateTime(2025, 9, 22); 
+    {
+        var currentDate = new DateTime(2025, 9, 22);
         var lastMonthStart = currentDate.AddMonths(-1);
         var lastMonthEnd = currentDate;
-        var expectedCount = 3; 
+        var expectedCount = 3;
 
         var followUpCount = seed.Appointments
             .Count(a => a.IsFollowUp &&
@@ -74,7 +75,7 @@ public class HospitalTests(HospitalDataSeed seed) : IClassFixture<HospitalDataSe
 
         var patientsWithMultipleDoctors = (from a in seed.Appointments
                                            join p in seed.Patients on a.PatientId equals p.Id
-                                           where p.DateOfBirth <= today.AddYears(-31) 
+                                           where p.DateOfBirth <= today.AddYears(-31)
                                            group a by p into patientGroup
                                            where patientGroup.Select(a => a.DoctorId).Distinct().Count() > 1
                                            orderby patientGroup.Key.DateOfBirth

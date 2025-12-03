@@ -1,9 +1,9 @@
-﻿namespace Hospital.Models;
+﻿namespace Hospital.Contracts;
 
 /// <summary>
 /// Represents the gender of a patient.
 /// </summary>
-public enum Gender
+public enum GenderDto
 {
     /// <summary>
     /// Male gender.

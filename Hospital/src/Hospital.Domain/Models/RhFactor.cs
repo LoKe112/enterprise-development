@@ -1,4 +1,4 @@
-﻿namespace Hospital.Models;
+﻿namespace Hospital.Domain.Models;
 
 /// <summary>
 /// Represents the Rh factor of a patient.
