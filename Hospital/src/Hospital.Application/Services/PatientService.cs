@@ -1,8 +1,10 @@
 ﻿using Hospital.Domain.Models;
 using Hospital.Domain.Repositories.Abstractions;
-using Hospital.Domain.Services.Abstractions;
+using Hospital.Application.Services.Abstractions;
+using Hospital.Contracts;
+using Hospital.Application.Mappers;
 
-namespace Hospital.Domain.Services;
+namespace Hospital.Application.Services;
 
 /// <summary>Service for managing patients.</summary>
 public class PatientService(IRepository<Patient> repository) : IPatientService
@@ -10,20 +12,23 @@ public class PatientService(IRepository<Patient> repository) : IPatientService
     /// <summary>
     /// Creates a new patient.
     /// </summary>
-    /// <param name="patient">Patient.</param>
-    /// <returns>The ID of the created patient.</returns>
-    public async Task<Patient> CreatePatientAsync(Patient patient)
+    /// <param name="request">The patient data to create.</param>
+    /// <returns>The created patient.</returns>
+    public async Task<PatientResponse> CreatePatientAsync(PatientRequest request)
     {
-        return await repository.CreateAsync(patient);
+        var patient = request.ToDomain();
+        var createdPatient = await repository.CreateAsync(patient);
+        return createdPatient.ToResponse();
     }
 
     /// <summary>
     /// Returns all patients.
     /// </summary>
     /// <returns>List of all patients.</returns>
-    public async Task<List<Patient>> GetAllPatientsAsync()
+    public async Task<List<PatientResponse>> GetAllPatientsAsync()
     {
-        return await repository.GetAllAsync();
+        var patients = await repository.GetAllAsync();
+        return patients.Select(p => p.ToResponse()).ToList();
     }
 
     /// <summary>
@@ -31,21 +36,24 @@ public class PatientService(IRepository<Patient> repository) : IPatientService
     /// </summary>
     /// <param name="id">The ID of the patient.</param>
     /// <returns>The patient with the specified ID, or <c>null</c> if not found.</returns>
-    public async Task<Patient?> GetPatientAsync(Guid id)
+    public async Task<PatientResponse?> GetPatientAsync(Guid id)
     {
-        return await repository.GetByIdAsync(id);
+        var patient = await repository.GetByIdAsync(id);
+        return patient?.ToResponse();
     }
 
     /// <summary>
     /// Updates an existing patient.
     /// </summary>
     /// <param name="id">The ID of the patient to update.</param>
-    /// <param name="entity">The updated patient data.</param>
+    /// <param name="request">The updated patient data.</param>
     /// <returns>The updated patient, or <c>null</c> if not found.</returns>
-    public async Task<Patient?> UpdatePatientAsync(Guid id, Patient entity)
+    public async Task<PatientResponse?> UpdatePatientAsync(Guid id, PatientRequest request)
     {
-        entity.Id = id;
-        return await repository.UpdateAsync(entity);
+        var patient = request.ToDomain();
+        patient.Id = id;
+        var updatedPatient = await repository.UpdateAsync(patient);
+        return updatedPatient?.ToResponse();
     }
 
     /// <summary>

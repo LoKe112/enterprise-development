@@ -1,6 +1,6 @@
 ﻿using Hospital.Contracts;
 using Hospital.Domain.Models;
-namespace Hospital.Api.Mappers;
+namespace Hospital.Application.Mappers;
 
 /// <summary>
 /// Provides mapping methods for doctors.
@@ -63,7 +63,7 @@ public static class PatientsMapper
     /// Converts an PatientDto to an Patient domain model.
     /// </summary>
     public static Patient ToDomain(this PatientRequest request) =>
-        new Patient
+        new()
         {
             PassportNumber = request.PassportNumber,
             FullName = request.FullName,
@@ -80,7 +80,7 @@ public static class PatientsMapper
     /// Converts an Patient to an PatientResponseDto.
     /// </summary>
     public static PatientResponse ToResponse(this Patient entity) =>
-        new PatientResponse
+        new()
         {
             PassportNumber = entity.PassportNumber,
             FullName = entity.FullName,
@@ -92,4 +92,17 @@ public static class PatientsMapper
             PhoneNumber = entity.PhoneNumber,
             Id = entity.Id
         };
+    public static Patient MapTo(this PatientRequest request, Patient patient)
+    {
+        patient.PassportNumber = request.PassportNumber;
+        patient.FullName = request.FullName;
+        patient.Gender = request.Gender.ToDomain();
+        patient.DateOfBirth = request.DateOfBirth;
+        patient.Address = request.Address;
+        patient.BloodGroup = request.BloodGroup.ToDomain();
+        patient.RhFactor = request.RhFactor.ToDomain();
+        patient.PhoneNumber = request.PhoneNumber;
+
+        return patient;
+    }
 }

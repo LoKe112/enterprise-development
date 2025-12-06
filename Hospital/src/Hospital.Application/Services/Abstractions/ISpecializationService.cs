@@ -1,6 +1,6 @@
-﻿using Hospital.Domain.Models;
+﻿using Hospital.Contracts;
 
-namespace Hospital.Domain.Services.Abstractions;
+namespace Hospital.Application.Services.Abstractions;
 
 /// <summary>
 /// Interface for the specialization service.
@@ -10,30 +10,30 @@ public interface ISpecializationService
     /// <summary>
     /// Creates a new specialization.
     /// </summary>
-    /// <param name="specialization">Specialization.</param>
-    /// <returns>The Id of the created specialization.</returns>
-    public Task<Specialization> CreateSpecializationAsync(Specialization specialization);
+    /// <param name="request">The specialization data to create.</param>
+    /// <returns>The created specialization.</returns>
+    public Task<SpecializationResponse> CreateSpecializationAsync(SpecializationRequest request);
 
     /// <summary>
     /// Returns all specializations.
     /// </summary>
     /// <returns>A list of all specializations.</returns>
-    public Task<List<Specialization>> GetAllSpecializationsAsync();
+    public Task<List<SpecializationResponse>> GetAllSpecializationsAsync();
 
     /// <summary>
     /// Returns a specialization by Id.
     /// </summary>
     /// <param name="id">The Id of the specialization.</param>
     /// <returns>The specialization with the specified Id, or <c>null</c> if not found.</returns>
-    public Task<Specialization?> GetSpecializationAsync(Guid id);
+    public Task<SpecializationResponse?> GetSpecializationAsync(Guid id);
 
     /// <summary>
     /// Updates a specialization.
     /// </summary>
     /// <param name="id">The Id of the specialization to update.</param>
-    /// <param name="entity">The specialization data.</param>
+    /// <param name="request">The updated specialization data.</param>
     /// <returns>The updated specialization, or <c>null</c> if not found.</returns>
-    public Task<Specialization?> UpdateSpecializationAsync(Guid id, Specialization entity);
+    public Task<SpecializationResponse?> UpdateSpecializationAsync(Guid id, SpecializationRequest request);
 
     /// <summary>
     /// Deletes a specialization by Id.

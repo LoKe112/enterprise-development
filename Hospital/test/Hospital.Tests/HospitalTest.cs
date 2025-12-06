@@ -1,4 +1,5 @@
-using Hospital.Infrastructure;
+using Hospital.Domain;
+
 namespace Hospital.Tests;
 
 /// <summary>

@@ -45,6 +45,7 @@ public class PatientResponse
     /// </summary>
     public required RhFactorDto RhFactor { get; set; }
 
+
     /// <summary>
     /// The contact phone number of the patient.
     /// </summary>

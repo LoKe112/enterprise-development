@@ -1,23 +1,17 @@
-﻿using Hospital.Api.Mappers;
+﻿using Hospital.Application.Mappers;
 using Hospital.Contracts;
 using Hospital.Domain.Models;
-using Hospital.Domain.Services.Abstractions;
+using Hospital.Application.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class PatientsController : ControllerBase
+public class PatientsController(ILogger<PatientsController> logger, IPatientService service) : ControllerBase
 {
-    private readonly ILogger<PatientsController> _logger;
-    private readonly IPatientService _service;
-
-    public PatientsController(ILogger<PatientsController> logger, IPatientService service)
-    {
-        _logger = logger;
-        _service = service;
-    }
+    private readonly ILogger<PatientsController> _logger = logger;
+    private readonly IPatientService _service = service;
 
     /// <summary>Returns all patients.</summary>
     [HttpGet]
@@ -28,9 +22,8 @@ public class PatientsController : ControllerBase
         _logger.LogInformation("Called GetAll in PatientController");
         try
         {
-            List<Patient> patients = await _service.GetAllPatientsAsync();
-            var response = patients.Select(s => s.ToResponse()).ToList();
-            return Ok(response);
+            List<PatientResponse> patients = await _service.GetAllPatientsAsync();
+            return Ok(patients);
         }
         catch (Exception ex)
         {
@@ -49,12 +42,12 @@ public class PatientsController : ControllerBase
         _logger.LogInformation("Called GetById in PatientController");
         try
         {
-            Patient? patient = await _service.GetPatientAsync(id);
+            PatientResponse? patient = await _service.GetPatientAsync(id);
             if (patient is null)
             {
                 return NotFound();
             }
-            return Ok(patient.ToResponse());
+            return Ok(patient);
         }
         catch (Exception ex)
         {
@@ -79,11 +72,8 @@ public class PatientsController : ControllerBase
 
         try
         {
-            Patient entity = await _service.CreatePatientAsync(PatientDto.ToDomain());
-            return CreatedAtAction(nameof(GetById), new
-            {
-                entity.Id
-            }, null);
+            PatientResponse entity = await _service.CreatePatientAsync(PatientDto);
+            return CreatedAtAction(nameof(GetById), new {entity.Id}, entity);
         }
         catch (Exception ex)
         {
@@ -109,15 +99,13 @@ public class PatientsController : ControllerBase
 
         try
         {
-            Patient patientToUpdate = PatientDto.ToDomain();
-
-            Patient? updated = await _service.UpdatePatientAsync(id, patientToUpdate);
+            PatientResponse? updated = await _service.UpdatePatientAsync(id, PatientDto);
             if (updated is null)
             {
                 return NotFound();
             }
 
-            return Ok(updated.ToResponse());
+            return Ok(updated);
         }
         catch (Exception ex)
         {
@@ -138,11 +126,6 @@ public class PatientsController : ControllerBase
         try
         {
             var deleted = await _service.DeletePatientAsync(id);
-            if (!deleted)
-            {
-                return NotFound();
-            }
-
             return NoContent();
         }
         catch (Exception ex)

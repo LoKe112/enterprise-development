@@ -1,10 +1,12 @@
+using Hospital.Application.Services;
+using Hospital.Application.Services.Abstractions;
+using Hospital.Domain;
 using Hospital.Domain.Models;
 using Hospital.Domain.Repositories.Abstractions;
-using Hospital.Domain.Services;
-using Hospital.Domain.Services.Abstractions;
 using Hospital.Infrastructure;
 using Hospital.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +28,14 @@ builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 
-builder.Services.AddControllers();
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(opts =>
+    {
+        var enumConverter = new JsonStringEnumConverter();
+        opts.JsonSerializerOptions.Converters.Add(enumConverter);
+    });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

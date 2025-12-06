@@ -1,17 +1,13 @@
+using Hospital.Domain;
 using Hospital.Domain.Models;
 
 using Microsoft.EntityFrameworkCore;
 
 namespace Hospital.Infrastructure;
 
-public class HospitalDbContext : DbContext
+public class HospitalDbContext(DbContextOptions options, DataSeeder dataSeeder) : DbContext(options)
 {
-    private readonly DataSeeder _dataSeeder;
-
-    public HospitalDbContext(DbContextOptions options, DataSeeder dataSeeder) : base(options)
-    {
-        _dataSeeder = dataSeeder;
-    }
+    private readonly DataSeeder _dataSeeder = dataSeeder;
 
     public DbSet<Specialization> Specializations { get; set; }
     public DbSet<Doctor> Doctors { get; set; }

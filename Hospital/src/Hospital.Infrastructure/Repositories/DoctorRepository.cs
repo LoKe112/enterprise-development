@@ -8,15 +8,10 @@ namespace Hospital.Infrastructure.Repositories;
 /// <summary>
 /// Repository implementation for managing doctors.
 /// </summary>
-public class DoctorRepository : IRepository<Doctor>
+public class DoctorRepository(HospitalDbContext dbContext) : IRepository<Doctor>
 {
-    private readonly HospitalDbContext _dbContext;
+    private readonly HospitalDbContext _dbContext = dbContext;
 
-    public DoctorRepository(HospitalDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
- 
     public async Task<Doctor> CreateAsync(Doctor entity)
     {
         _dbContext.Doctors.Add(entity);

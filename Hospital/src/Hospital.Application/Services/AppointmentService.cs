@@ -1,8 +1,10 @@
-﻿using Hospital.Domain.Models;
+﻿using Hospital.Application.Mappers;
+using Hospital.Application.Services.Abstractions;
+using Hospital.Contracts;
+using Hospital.Domain.Models;
 using Hospital.Domain.Repositories.Abstractions;
-using Hospital.Domain.Services.Abstractions;
 
-namespace Hospital.Domain.Services;
+namespace Hospital.Application.Services;
 
 /// <summary>
 /// Service for managing appointments.
@@ -14,25 +16,33 @@ public class AppointmentService(IRepository<Appointment> repository) : IAppointm
     /// </summary>
     /// <param name="appointment">The appointment to create.</param>
     /// <returns>The ID of the created appointment.</returns>
-    public async Task<Appointment> CreateAppointmentAsync(Appointment appointment)
+    public async Task<AppointmentResponse> CreateAppointmentAsync(AppointmentRequest request)
     {
-        return await repository.CreateAsync(appointment);
+        var appointment = request.ToDomain();
+        var createdAppointment = await repository.CreateAsync(appointment);
+        return createdAppointment.ToResponse();
     }
 
     /// <summary>
     /// Returns all appointments.
     /// </summary>
     /// <returns>List of all appointments.</returns>
-    public async Task<List<Appointment>> GetAllAppointmentsAsync() =>
-        await repository.GetAllAsync();
+    public async Task<List<AppointmentResponse>> GetAllAppointmentsAsync()
+    {
+        var appointments = await repository.GetAllAsync();
+        return appointments.Select(a => a.ToResponse()).ToList();
+    }
 
     /// <summary>
     /// Returns a appointment by ID.
     /// </summary>
     /// <param name="id">The ID of the appointment.</param>
     /// <returns>The appointment with the specified ID, or <c>null</c> if not found.</returns>
-    public async Task<Appointment?> GetAppointmentAsync(Guid id) =>
-        await repository.GetByIdAsync(id);
+    public async Task<AppointmentResponse?> GetAppointmentAsync(Guid id)
+    {
+        var appointment = await repository.GetByIdAsync(id);
+        return appointment?.ToResponse();
+    }
 
     /// <summary>
     /// Updates an existing appointment.
@@ -40,10 +50,16 @@ public class AppointmentService(IRepository<Appointment> repository) : IAppointm
     /// <param name="id">The ID of the appointment to update.</param>
     /// <param name="appointment">The updated appointment data.</param>
     /// <returns>The updated appointment, or <c>null</c> if not found.</returns>
-    public async Task<Appointment?> UpdateAppointmentAsync(Guid id, Appointment appointment)
+    public async Task<AppointmentResponse?> UpdateAppointmentAsync(Guid id, AppointmentRequest request)
     {
-        appointment.Id = id;
-        return await repository.UpdateAsync(appointment);
+        var appointment = await repository.GetByIdAsync(id);
+
+        if (appointment is null)
+            return null;
+
+        request.MapTo(appointment);
+        var updatedAppointment = await repository.UpdateAsync(appointment);
+        return updatedAppointment?.ToResponse();
     }
 
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿using Hospital.Contracts;
 using Hospital.Domain.Models;
 
-namespace Hospital.Api.Mappers;
+namespace Hospital.Application.Mappers;
 
 /// <summary>
 /// Provides mapping methods for Appointments.
@@ -12,27 +12,40 @@ public static class AppointmentMapper
     /// Converts an AppointmentDto to an Appointment domain model.
     /// </summary>
     public static Appointment ToDomain(this AppointmentRequest request) =>
-    new Appointment
+    new()
     {
         AppointmentDateTime = request.AppointmentDateTime,
         RoomNumber = request.RoomNumber,
         IsFollowUp = request.IsFollowUp,
         PatientId = request.PatientId,
         DoctorId = request.DoctorId,
-        Id = Guid.Empty
+        Id = Guid.Empty,        
     };
 
     /// <summary>
     /// Converts an Appointment to anAppointmentResponseDto.
     /// </summary>
     public static AppointmentResponse ToResponse(this Appointment entity) =>
-    new AppointmentResponse
+    new()
     {
         AppointmentDateTime = entity.AppointmentDateTime,
         RoomNumber = entity.RoomNumber,
         IsFollowUp = entity.IsFollowUp,
         PatientId = entity.PatientId,
         DoctorId = entity.DoctorId,
-        Id = entity.Id
+        Id = entity.Id,
+        Patient = entity.Patient?.ToResponse(),
+        Doctor = entity.Doctor?.ToResponse()
     };
+
+    public static Appointment MapTo(this AppointmentRequest request, Appointment appointment)
+    {
+        appointment.AppointmentDateTime = request.AppointmentDateTime;
+        appointment.RoomNumber = request.RoomNumber;
+        appointment.IsFollowUp = request.IsFollowUp;
+        appointment.PatientId = request.PatientId;
+        appointment.DoctorId = request.DoctorId;
+
+        return appointment;
+    }
 }

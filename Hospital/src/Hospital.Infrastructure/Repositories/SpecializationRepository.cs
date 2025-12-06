@@ -8,14 +8,9 @@ namespace Hospital.Infrastructure.Repositories;
 /// <summary>
 /// Repository implementation for managing doctors.
 /// </summary>
-public class SpecializationRepository : IRepository<Specialization>
+public class SpecializationRepository(HospitalDbContext dbContext) : IRepository<Specialization>
 {
-    private readonly HospitalDbContext _dbContext;
-
-    public SpecializationRepository(HospitalDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    private readonly HospitalDbContext _dbContext = dbContext;
 
     public async Task<Specialization> CreateAsync(Specialization entity)
     {

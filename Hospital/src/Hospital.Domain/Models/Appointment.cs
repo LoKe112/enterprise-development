@@ -30,7 +30,7 @@ public class Appointment
     /// <summary>
     /// Patient associated with this appointment.
     /// </summary>
-    public Patient Patient { get; set; } = null!;
+    public Patient? Patient { get; set; }
 
     /// <summary>
     /// Identifier of the doctor associated with this appointment.
@@ -40,5 +40,5 @@ public class Appointment
     /// <summary>
     /// Doctor associated with this appointment.
     /// </summary>
-    public Doctor Doctor { get; set; } = null!;
+    public Doctor? Doctor { get; set; }
 }

@@ -1,23 +1,17 @@
-﻿using Hospital.Api.Mappers;
+﻿using Hospital.Application.Mappers;
 using Hospital.Contracts;
 using Hospital.Domain.Models;
-using Hospital.Domain.Services.Abstractions;
+using Hospital.Application.Services.Abstractions;
 
 using Microsoft.AspNetCore.Mvc;
 namespace Hospital.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AppointmentsController : ControllerBase
+public class AppointmentsController(ILogger<AppointmentsController> logger, IAppointmentService service) : ControllerBase
 {
-    private readonly ILogger<AppointmentsController> _logger;
-    private readonly IAppointmentService _service;
-
-    public AppointmentsController(ILogger<AppointmentsController> logger, IAppointmentService service)
-    {
-        _logger = logger;
-        _service = service;
-    }
+    private readonly ILogger<AppointmentsController> _logger = logger;
+    private readonly IAppointmentService _service = service;
 
     /// <summary>Returns all appointments.</summary>
     [HttpGet]
@@ -28,9 +22,8 @@ public class AppointmentsController : ControllerBase
         _logger.LogInformation("Called GetAll in AppointmentController");
         try
         {
-            List<Appointment> appointments = await _service.GetAllAppointmentsAsync();
-            var response = appointments.Select(s => s.ToResponse()).ToList();
-            return Ok(response);
+            List<AppointmentResponse> appointments = await _service.GetAllAppointmentsAsync();            
+            return Ok(appointments);
         }
         catch (Exception ex)
         {
@@ -49,12 +42,12 @@ public class AppointmentsController : ControllerBase
         _logger.LogInformation("Called GetById in AppointmentController");
         try
         {
-            Appointment? appointment = await _service.GetAppointmentAsync(id);
+            AppointmentResponse? appointment = await _service.GetAppointmentAsync(id);
             if (appointment is null)
             {
                 return NotFound();
             }
-            return Ok(appointment.ToResponse());
+            return Ok(appointment);
         }
         catch (Exception ex)
         {
@@ -79,11 +72,8 @@ public class AppointmentsController : ControllerBase
 
         try
         {
-            Appointment entity = await _service.CreateAppointmentAsync(AppointmentDto.ToDomain());
-            return CreatedAtAction(nameof(GetById), new
-            {
-                entity.Id
-            }, null);
+            AppointmentResponse entity = await _service.CreateAppointmentAsync(AppointmentDto);
+            return CreatedAtAction(nameof(GetById), new {entity.Id}, entity);
         }
         catch (Exception ex)
         {
@@ -109,15 +99,13 @@ public class AppointmentsController : ControllerBase
 
         try
         {
-            Appointment appointmentToUpdate = AppointmentDto.ToDomain();
-
-            Appointment? updated = await _service.UpdateAppointmentAsync(id, appointmentToUpdate);
+            AppointmentResponse? updated = await _service.UpdateAppointmentAsync(id, AppointmentDto);
             if (updated is null)
             {
                 return NotFound();
             }
 
-            return Ok(updated.ToResponse());
+            return Ok(updated);
         }
         catch (Exception ex)
         {
@@ -138,11 +126,6 @@ public class AppointmentsController : ControllerBase
         try
         {
             var deleted = await _service.DeleteAppointmentAsync(id);
-            if (!deleted)
-            {
-                return NotFound();
-            }
-
             return NoContent();
         }
         catch (Exception ex)

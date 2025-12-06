@@ -5,7 +5,7 @@ var sql = builder.AddMySql("db")
 
 var db = sql.AddDatabase("HospitalDatabase");
 
-var api = builder.AddProject<Projects.Hospital_Api>("hospital-api")
+builder.AddProject<Projects.Hospital_Api>("hospital-api")
     .WithReference(db)
     .WaitFor(db);
 

@@ -1,14 +1,10 @@
-﻿using System.Reflection;
+﻿namespace Hospital.Contracts;
 
-namespace Hospital.Contracts;
-
+/// <summary>
+/// Request
+/// </summary>
 public class PatientRequest
 {
-    /// <summary>
-    /// Gets or sets the unique identifier for the patient.
-    /// </summary>
-    public required Guid Id { get; set; }
-
     /// <summary>
     /// Passport number of the patient. Consists of 4 then 6 digits.
     /// </summary>

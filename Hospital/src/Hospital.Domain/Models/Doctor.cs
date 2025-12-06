@@ -30,7 +30,7 @@ public class Doctor
     /// <summary>
     /// Medical specialization of the doctor.
     /// </summary>
-    public Specialization Specialization { get; set; } = null!;
+    public Specialization? Specialization { get; set; }
 
     /// <summary>
     /// Number of years of professional experience of the doctor.

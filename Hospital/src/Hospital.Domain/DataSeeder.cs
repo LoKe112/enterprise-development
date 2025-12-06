@@ -1,5 +1,5 @@
 ﻿using Hospital.Domain.Models;
-namespace Hospital.Infrastructure;
+namespace Hospital.Domain;
 
 /// <summary>Seeds test data to hospital models.</summary>
 public class DataSeeder

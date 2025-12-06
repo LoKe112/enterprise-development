@@ -1,8 +1,10 @@
 ﻿using Hospital.Domain.Models;
 using Hospital.Domain.Repositories.Abstractions;
-using Hospital.Domain.Services.Abstractions;
+using Hospital.Application.Services.Abstractions;
+using Hospital.Contracts;
+using Hospital.Application.Mappers;
 
-namespace Hospital.Domain.Services;
+namespace Hospital.Application.Services;
 
 /// <summary>
 /// Service for managing doctors.
@@ -12,38 +14,48 @@ public class DoctorService(IRepository<Doctor> repository) : IDoctorService
     /// <summary>
     /// Creates a new doctor.
     /// </summary>
-    /// <param name="doctor">The doctor to create.</param>
-    /// <returns>The ID of the created doctor.</returns>
-    public async Task<Doctor> CreateDoctorAsync(Doctor doctor)
+    /// <param name="request">The doctor data to create.</param>
+    /// <returns>The created doctor.</returns>
+    public async Task<DoctorResponse> CreateDoctorAsync(DoctorRequest request)
     {
-        return await repository.CreateAsync(doctor);
+        var doctor = request.ToDomain();
+        var createdDoctor = await repository.CreateAsync(doctor);
+        return createdDoctor.ToResponse();
     }
 
     /// <summary>
     /// Returns all doctors.
     /// </summary>
     /// <returns>List of all doctors.</returns>
-    public async Task<List<Doctor>> GetAllDoctorsAsync() =>
-        await repository.GetAllAsync();
+    public async Task<List<DoctorResponse>> GetAllDoctorsAsync()
+    {
+        var doctors = await repository.GetAllAsync();
+        return doctors.Select(d => d.ToResponse()).ToList();
+    }
 
     /// <summary>
     /// Returns a doctor by ID.
     /// </summary>
     /// <param name="id">The ID of the doctor.</param>
     /// <returns>The doctor with the specified ID, or <c>null</c> if not found.</returns>
-    public async Task<Doctor?> GetDoctorAsync(Guid id) =>
-        await repository.GetByIdAsync(id);
+    public async Task<DoctorResponse?> GetDoctorAsync(Guid id)
+    {
+        var doctor = await repository.GetByIdAsync(id);
+        return doctor?.ToResponse();
+    }
 
     /// <summary>
     /// Updates an existing doctor.
     /// </summary>
     /// <param name="id">The ID of the doctor to update.</param>
-    /// <param name="doctor">The updated doctor data.</param>
+    /// <param name="request">The updated doctor data.</param>
     /// <returns>The updated doctor, or <c>null</c> if not found.</returns>
-    public async Task<Doctor?> UpdateDoctorAsync(Guid id, Doctor doctor)
+    public async Task<DoctorResponse?> UpdateDoctorAsync(Guid id, DoctorRequest request)
     {
+        var doctor = request.ToDomain();
         doctor.Id = id;
-        return await repository.UpdateAsync(doctor);
+        var updatedDoctor = await repository.UpdateAsync(doctor);
+        return updatedDoctor?.ToResponse();
     }
 
     /// <summary>

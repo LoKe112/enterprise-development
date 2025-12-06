@@ -1,23 +1,17 @@
-﻿using Hospital.Api.Mappers;
+﻿using Hospital.Application.Mappers;
 using Hospital.Contracts;
 using Hospital.Domain.Models;
-using Hospital.Domain.Services.Abstractions;
+using Hospital.Application.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class SpecializationsController : ControllerBase
+public class SpecializationsController(ILogger<SpecializationsController> logger, ISpecializationService service) : ControllerBase
 {
-    private readonly ILogger<SpecializationsController> _logger;
-    private readonly ISpecializationService _service;
-
-    public SpecializationsController(ILogger<SpecializationsController> logger, ISpecializationService service)
-    {
-        _logger = logger;
-        _service = service;
-    }
+    private readonly ILogger<SpecializationsController> _logger = logger;
+    private readonly ISpecializationService _service = service;
 
     /// <summary>Returns all specializations.</summary>
     [HttpGet]
@@ -28,9 +22,8 @@ public class SpecializationsController : ControllerBase
         _logger.LogInformation("Called GetAll in SpecializationController");
         try
         {
-            List<Specialization> specializations = await _service.GetAllSpecializationsAsync();
-            var response = specializations.Select(s => s.ToResponse()).ToList();
-            return Ok(response);
+            List<SpecializationResponse> specializations = await _service.GetAllSpecializationsAsync();
+            return Ok(specializations);
         }
         catch (Exception ex)
         {
@@ -49,12 +42,12 @@ public class SpecializationsController : ControllerBase
         _logger.LogInformation("Called GetById in SpecializationController");
         try
         {
-            Specialization? specialization = await _service.GetSpecializationAsync(id);
+            SpecializationResponse? specialization = await _service.GetSpecializationAsync(id);
             if (specialization is null)
             {
                 return NotFound();
             }
-            return Ok(specialization.ToResponse());
+            return Ok(specialization);
         }
         catch (Exception ex)
         {
@@ -79,11 +72,8 @@ public class SpecializationsController : ControllerBase
 
         try
         {
-            Specialization entity = await _service.CreateSpecializationAsync(specializationDto.ToDomain());
-            return CreatedAtAction(nameof(GetById), new
-            {
-                entity.Id
-            }, null);
+            SpecializationResponse entity = await _service.CreateSpecializationAsync(specializationDto);
+            return CreatedAtAction(nameof(GetById), new {entity.Id}, entity);
         }
         catch (Exception ex)
         {
@@ -109,15 +99,13 @@ public class SpecializationsController : ControllerBase
 
         try
         {
-            Specialization specializationToUpdate = specializationDto.ToDomain();
-
-            Specialization? updated = await _service.UpdateSpecializationAsync(id, specializationToUpdate);
+            SpecializationResponse? updated = await _service.UpdateSpecializationAsync(id, specializationDto);
             if (updated is null)
             {
                 return NotFound();
             }
 
-            return Ok(updated.ToResponse());
+            return Ok(updated);
         }
         catch (Exception ex)
         {
@@ -138,11 +126,6 @@ public class SpecializationsController : ControllerBase
         try
         {
             var deleted = await _service.DeleteSpecializationAsync(id);
-            if (!deleted)
-            {
-                return NotFound();
-            }
-
             return NoContent();
         }
         catch (Exception ex)
