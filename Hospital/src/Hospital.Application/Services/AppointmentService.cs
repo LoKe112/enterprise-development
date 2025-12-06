@@ -14,7 +14,7 @@ public class AppointmentService(IRepository<Appointment> repository) : IAppointm
     /// <summary>
     /// Creates a new appointment.
     /// </summary>
-    /// <param name="appointment">The appointment to create.</param>
+    /// <param name="request">The appointment to create.</param>
     /// <returns>The ID of the created appointment.</returns>
     public async Task<AppointmentResponse> CreateAppointmentAsync(AppointmentRequest request)
     {
@@ -48,7 +48,7 @@ public class AppointmentService(IRepository<Appointment> repository) : IAppointm
     /// Updates an existing appointment.
     /// </summary>
     /// <param name="id">The ID of the appointment to update.</param>
-    /// <param name="appointment">The updated appointment data.</param>
+    /// <param name="request">The updated appointment data.</param>
     /// <returns>The updated appointment, or <c>null</c> if not found.</returns>
     public async Task<AppointmentResponse?> UpdateAppointmentAsync(Guid id, AppointmentRequest request)
     {

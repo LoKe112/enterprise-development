@@ -52,10 +52,14 @@ public class DoctorService(IRepository<Doctor> repository) : IDoctorService
     /// <returns>The updated doctor, or <c>null</c> if not found.</returns>
     public async Task<DoctorResponse?> UpdateDoctorAsync(Guid id, DoctorRequest request)
     {
-        var doctor = request.ToDomain();
-        doctor.Id = id;
-        var updatedDoctor = await repository.UpdateAsync(doctor);
-        return updatedDoctor?.ToResponse();
+        var doctor = await repository.GetByIdAsync(id);
+
+        if (doctor is null)
+            return null;
+
+        request.MapTo(doctor);
+        var updatedAppointment = await repository.UpdateAsync(doctor);
+        return updatedAppointment?.ToResponse();
     }
 
     /// <summary>

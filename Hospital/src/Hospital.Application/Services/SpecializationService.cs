@@ -50,10 +50,14 @@ public class SpecializationService(IRepository<Specialization> repository) : ISp
     /// <returns>The updated specialization, or <c>null</c> if not found.</returns>
     public async Task<SpecializationResponse?> UpdateSpecializationAsync(Guid id, SpecializationRequest request)
     {
-        var specialization = request.ToDomain();
-        specialization.Id = id;
-        var updatedSpecialization = await repository.UpdateAsync(specialization);
-        return updatedSpecialization?.ToResponse();
+        var specialization = await repository.GetByIdAsync(id);
+
+        if (specialization is null)
+            return null;
+
+        request.MapTo(specialization);
+        var updatedAppointment = await repository.UpdateAsync(specialization);
+        return updatedAppointment?.ToResponse();
     }
 
     /// <summary>

@@ -50,10 +50,14 @@ public class PatientService(IRepository<Patient> repository) : IPatientService
     /// <returns>The updated patient, or <c>null</c> if not found.</returns>
     public async Task<PatientResponse?> UpdatePatientAsync(Guid id, PatientRequest request)
     {
-        var patient = request.ToDomain();
-        patient.Id = id;
-        var updatedPatient = await repository.UpdateAsync(patient);
-        return updatedPatient?.ToResponse();
+        var patient = await repository.GetByIdAsync(id);
+
+        if (patient is null)
+            return null;
+
+        request.MapTo(patient);
+        var updatedAppointment = await repository.UpdateAsync(patient);
+        return updatedAppointment?.ToResponse();
     }
 
     /// <summary>

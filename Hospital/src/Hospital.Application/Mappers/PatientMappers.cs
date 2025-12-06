@@ -92,6 +92,13 @@ public static class PatientsMapper
             PhoneNumber = entity.PhoneNumber,
             Id = entity.Id
         };
+
+    /// <summary>
+    /// Updates an existing Doctor entity with data from DoctorRequest DTO.
+    /// </summary>
+    /// <param name="request">Source DTO with new values.</param>
+    /// <param name="patient">Target entity to update.</param>
+    /// <returns>Updated doctor entity.</returns>
     public static Patient MapTo(this PatientRequest request, Patient patient)
     {
         patient.PassportNumber = request.PassportNumber;

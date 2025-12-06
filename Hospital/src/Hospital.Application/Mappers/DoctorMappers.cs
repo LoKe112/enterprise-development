@@ -27,6 +27,7 @@ public static class DoctorsMapper
     public static DoctorResponse ToResponse(this Doctor entity) => 
     new()
     {
+        SpecializationId= entity.SpecializationId,
         PassportNumber = entity.PassportNumber,
         FullName = entity.FullName,
         YearOfBirth = entity.YearOfBirth,
@@ -34,6 +35,13 @@ public static class DoctorsMapper
         ExperienceYears = entity.ExperienceYears,
         Id = entity.Id
     };
+
+    /// <summary>
+    /// Updates an existing Doctor entity with data from DoctorRequest DTO.
+    /// </summary>
+    /// <param name="request">Source DTO with new values.</param>
+    /// <param name="doctor">Target entity to update.</param>
+    /// <returns>Updated doctor entity.</returns>
     public static Doctor MapTo(this DoctorRequest request, Doctor doctor)
     {
         doctor.FullName = request.FullName;

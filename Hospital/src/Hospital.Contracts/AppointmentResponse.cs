@@ -9,6 +9,7 @@ public class AppointmentResponse
     /// Unique identifier for the appointment.
     /// </summary>
     public required Guid Id { get; set; }
+
     /// <summary>
     /// Date and time when the appointment is scheduled.
     /// </summary>

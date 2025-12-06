@@ -93,7 +93,6 @@ public class AnalyticsService(
         var today = DateOnly.FromDateTime(DateTime.Now);
         var ageLimit = today.AddYears(-30);
 
-        // Получаем ID пациентов, которые подходят под условия
         var patientIds = appointments
             .Join(patients,
                 a => a.PatientId,
@@ -105,11 +104,10 @@ public class AnalyticsService(
             .Select(g => g.Key)
             .ToList();
 
-        // Получаем пациентов по ID и маппим в DTO
         var result = patients
             .Where(p => patientIds.Contains(p.Id))
             .OrderBy(p => p.DateOfBirth)
-            .Select(p => p.ToResponse()) // Используем существующий маппер
+            .Select(p => p.ToResponse()) 
             .ToList();
 
         return result;

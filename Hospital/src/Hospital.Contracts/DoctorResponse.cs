@@ -24,6 +24,7 @@ public class DoctorResponse
     /// </summary>
     public required int YearOfBirth { get; set; }
 
+    public required Guid SpecializationId { get; set; }
     /// <summary>
     /// Medical specialization of the doctor.
     /// </summary>

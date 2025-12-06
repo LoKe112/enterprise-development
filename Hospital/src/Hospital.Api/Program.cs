@@ -6,15 +6,22 @@ using Hospital.Domain.Repositories.Abstractions;
 using Hospital.Infrastructure;
 using Hospital.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<DataSeeder>();
+
 builder.AddMySqlDbContext<HospitalDbContext>("HospitalDatabase",
     settings =>
     {
         settings.ServerVersion = "9.5.0";
+    },
+    optionsBuilder =>
+    {
+        optionsBuilder.UseSnakeCaseNamingConvention();
+
     });
 
 builder.Services.AddScoped<IRepository<Specialization>, SpecializationRepository>();
@@ -37,6 +44,13 @@ builder.Services
     });
 
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+    c.IncludeXmlComments(xmlPath);
+});
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -46,7 +60,6 @@ var app = builder.Build();
     var db = scope.ServiceProvider.GetRequiredService<HospitalDbContext>();
     db.Database.Migrate();
 }
-
 
 if (app.Environment.IsDevelopment())
 {

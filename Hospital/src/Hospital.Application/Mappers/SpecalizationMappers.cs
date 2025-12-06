@@ -16,6 +16,7 @@ public static class SpecalizationMappers
             Id = Guid.Empty,
             Name = request.Name
         };
+
     /// <summary>
     /// Converts an Specialization to an SpecializationResponseDto.
     /// </summary>
@@ -25,6 +26,13 @@ public static class SpecalizationMappers
             Id = entity.Id,
             Name = entity.Name
         };
+
+    /// <summary>
+    /// Updates an existing Doctor entity with data from DoctorRequest DTO.
+    /// </summary>
+    /// <param name="request">Source DTO with new values.</param>
+    /// <param name="specialization">Target entity to update.</param>
+    /// <returns>Updated doctor entity.</returns>
     public static Specialization MapTo(this SpecializationRequest request, Specialization specialization)
     {
         specialization.Name = request.Name;

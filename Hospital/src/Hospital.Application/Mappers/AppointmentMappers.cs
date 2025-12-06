@@ -38,6 +38,12 @@ public static class AppointmentMapper
         Doctor = entity.Doctor?.ToResponse()
     };
 
+    /// <summary>
+    /// Updates an existing Doctor entity with data from DoctorRequest DTO.
+    /// </summary>
+    /// <param name="request">Source DTO with new values.</param>
+    /// <param name="appointment">Target entity to update.</param>
+    /// <returns>Updated doctor entity.</returns>
     public static Appointment MapTo(this AppointmentRequest request, Appointment appointment)
     {
         appointment.AppointmentDateTime = request.AppointmentDateTime;
