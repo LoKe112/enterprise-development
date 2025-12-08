@@ -31,7 +31,7 @@ public static class DoctorsMapper
         PassportNumber = entity.PassportNumber,
         FullName = entity.FullName,
         YearOfBirth = entity.YearOfBirth,
-        Specialization = entity.Specialization?.ToResponse(),
+        Specialization = entity.Specialization!.ToResponse(),
         ExperienceYears = entity.ExperienceYears,
         Id = entity.Id
     };

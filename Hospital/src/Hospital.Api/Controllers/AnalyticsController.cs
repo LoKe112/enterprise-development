@@ -8,26 +8,20 @@ namespace Hospital.Api.Controllers;
 /// <summary>
 /// Controller for analytical queries and reports.
 /// </summary>
+/// <remarks>
+/// Initializes a new instance of the <see cref="AnalyticsController"/> class.
+/// </remarks>
+/// <param name="analyticsService">The analytics service.</param>
+/// <param name="logger">The logger.</param>
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
-public class AnalyticsController : ControllerBase
+public class AnalyticsController(
+    IAnalyticsService analyticsService,
+    ILogger<AnalyticsController> logger) : ControllerBase
 {
-    private readonly IAnalyticsService _analyticsService;
-    private readonly ILogger<AnalyticsController> _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AnalyticsController"/> class.
-    /// </summary>
-    /// <param name="analyticsService">The analytics service.</param>
-    /// <param name="logger">The logger.</param>
-    public AnalyticsController(
-        IAnalyticsService analyticsService,
-        ILogger<AnalyticsController> logger)
-    {
-        _analyticsService = analyticsService;
-        _logger = logger;
-    }
+    private readonly IAnalyticsService _analyticsService = analyticsService;
+    private readonly ILogger<AnalyticsController> _logger = logger;
 
     /// <summary>
     /// Gets doctors with 10 or more years of experience.

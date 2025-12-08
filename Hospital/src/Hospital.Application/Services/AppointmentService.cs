@@ -30,7 +30,7 @@ public class AppointmentService(IRepository<Appointment> repository) : IAppointm
     public async Task<List<AppointmentResponse>> GetAllAppointmentsAsync()
     {
         var appointments = await repository.GetAllAsync();
-        return appointments.Select(a => a.ToResponse()).ToList();
+        return [.. appointments.Select(a => a.ToResponse())];
     }
 
     /// <summary>

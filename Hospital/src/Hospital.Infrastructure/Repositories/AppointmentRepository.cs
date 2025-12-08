@@ -23,6 +23,7 @@ public class AppointmentRepository(HospitalDbContext dbContext) : IRepository<Ap
     {
         return await _dbContext.Appointments
             .Include(x => x.Doctor)
+                .ThenInclude(x => x.Specialization)
             .Include(x => x.Patient)
             .ToListAsync();
     }
@@ -31,13 +32,14 @@ public class AppointmentRepository(HospitalDbContext dbContext) : IRepository<Ap
     {
         return await _dbContext.Appointments
             .Include(x => x.Doctor)
+                .ThenInclude(x => x.Specialization)
             .Include(x => x.Patient)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
     public async Task<Appointment?> UpdateAsync(Appointment entity)
     {
-        Appointment? storedEntity = await _dbContext.Appointments.FindAsync(entity.Id);
+        var storedEntity = await _dbContext.Appointments.FindAsync(entity.Id);
 
         if (storedEntity is null)
             return null;

@@ -30,7 +30,7 @@ public class DoctorService(IRepository<Doctor> repository) : IDoctorService
     public async Task<List<DoctorResponse>> GetAllDoctorsAsync()
     {
         var doctors = await repository.GetAllAsync();
-        return doctors.Select(d => d.ToResponse()).ToList();
+        return [.. doctors.Select(a => a.ToResponse())];
     }
 
     /// <summary>

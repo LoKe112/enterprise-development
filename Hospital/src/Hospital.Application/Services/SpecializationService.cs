@@ -28,7 +28,7 @@ public class SpecializationService(IRepository<Specialization> repository) : ISp
     public async Task<List<SpecializationResponse>> GetAllSpecializationsAsync()
     {
         var specializations = await repository.GetAllAsync();
-        return specializations.Select(s => s.ToResponse()).ToList();
+        return [.. specializations.Select(a => a.ToResponse())];
     }
 
     /// <summary>

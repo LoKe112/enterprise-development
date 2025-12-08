@@ -34,8 +34,8 @@ public static class AppointmentMapper
         PatientId = entity.PatientId,
         DoctorId = entity.DoctorId,
         Id = entity.Id,
-        Patient = entity.Patient?.ToResponse(),
-        Doctor = entity.Doctor?.ToResponse()
+        Patient = entity.Patient!.ToResponse(),
+        Doctor = entity.Doctor!.ToResponse()
     };
 
     /// <summary>

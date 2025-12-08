@@ -28,7 +28,7 @@ public class PatientService(IRepository<Patient> repository) : IPatientService
     public async Task<List<PatientResponse>> GetAllPatientsAsync()
     {
         var patients = await repository.GetAllAsync();
-        return patients.Select(p => p.ToResponse()).ToList();
+        return [.. patients.Select(a => a.ToResponse())];
     }
 
     /// <summary>

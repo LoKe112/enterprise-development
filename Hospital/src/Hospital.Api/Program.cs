@@ -1,5 +1,6 @@
 using Hospital.Application.Services;
 using Hospital.Application.Services.Abstractions;
+using Hospital.Contracts;
 using Hospital.Domain;
 using Hospital.Domain.Models;
 using Hospital.Domain.Repositories.Abstractions;
@@ -50,6 +51,12 @@ builder.Services.AddSwaggerGen(c =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
     c.IncludeXmlComments(xmlPath);
+
+    var contractsAssembly = typeof(AppointmentResponse).Assembly;
+    var contractsXml = $"{contractsAssembly.GetName().Name}.xml";
+    var contractsXmlPath = Path.Combine(AppContext.BaseDirectory, contractsXml);
+
+    c.IncludeXmlComments(contractsXmlPath);
 });
 builder.Services.AddSwaggerGen();
 

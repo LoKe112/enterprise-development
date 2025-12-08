@@ -31,7 +31,7 @@ public class SpecializationRepository(HospitalDbContext dbContext) : IRepository
 
     public async Task<Specialization?> UpdateAsync(Specialization entity)
     {
-        Specialization? storedEntity = await _dbContext.Specializations.FindAsync(entity.Id);
+        var storedEntity = await _dbContext.Specializations.FindAsync(entity.Id);
 
         if (storedEntity is null)
             return null;

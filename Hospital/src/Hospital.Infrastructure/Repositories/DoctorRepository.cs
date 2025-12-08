@@ -31,7 +31,7 @@ public class DoctorRepository(HospitalDbContext dbContext) : IRepository<Doctor>
 
     public async Task<Doctor?> UpdateAsync(Doctor entity)
     {
-        Doctor? storedEntity = await _dbContext.Doctors.FindAsync(entity.Id);
+        var storedEntity = await _dbContext.Doctors.FindAsync(entity.Id);
 
         if (storedEntity is null)
             return null;
