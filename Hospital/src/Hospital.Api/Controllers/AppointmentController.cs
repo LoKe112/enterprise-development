@@ -22,7 +22,7 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
         _logger.LogInformation("Called GetAll in AppointmentController");
         try
         {
-            List<AppointmentResponse> appointments = await _service.GetAllAppointmentsAsync();            
+            var appointments = await _service.GetAllAppointmentsAsync();            
             return Ok(appointments);
         }
         catch (Exception ex)
@@ -42,7 +42,7 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
         _logger.LogInformation("Called GetById in AppointmentController");
         try
         {
-            AppointmentResponse? appointment = await _service.GetAppointmentAsync(id);
+            var appointment = await _service.GetAppointmentAsync(id);
             if (appointment is null)
             {
                 return NotFound();
@@ -72,7 +72,7 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
 
         try
         {
-            AppointmentResponse entity = await _service.CreateAppointmentAsync(AppointmentDto);
+            var entity = await _service.CreateAppointmentAsync(AppointmentDto);
             return CreatedAtAction(nameof(GetById), new {entity.Id}, entity);
         }
         catch (Exception ex)
@@ -99,7 +99,7 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
 
         try
         {
-            AppointmentResponse? updated = await _service.UpdateAppointmentAsync(id, AppointmentDto);
+            var updated = await _service.UpdateAppointmentAsync(id, AppointmentDto);
             if (updated is null)
             {
                 return NotFound();

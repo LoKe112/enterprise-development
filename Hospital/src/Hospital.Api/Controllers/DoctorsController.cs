@@ -22,7 +22,7 @@ public class DoctorsController(ILogger<DoctorsController> logger, IDoctorService
         _logger.LogInformation("Called GetAll in DoctorController");
         try
         {
-            List<DoctorResponse> doctors = await _service.GetAllDoctorsAsync();
+            var doctors = await _service.GetAllDoctorsAsync();
             return Ok(doctors);
         }
         catch (Exception ex)
@@ -42,7 +42,7 @@ public class DoctorsController(ILogger<DoctorsController> logger, IDoctorService
         _logger.LogInformation("Called GetById in DoctorController");
         try
         {
-            DoctorResponse? doctor = await _service.GetDoctorAsync(id);
+            var doctor = await _service.GetDoctorAsync(id);
             if (doctor is null)
             {
                 return NotFound();
@@ -72,7 +72,7 @@ public class DoctorsController(ILogger<DoctorsController> logger, IDoctorService
 
         try
         {
-            DoctorResponse entity = await _service.CreateDoctorAsync(doctorDto);
+            var entity = await _service.CreateDoctorAsync(doctorDto);
             return CreatedAtAction(nameof(GetById), new {entity.Id}, entity);
         }
         catch (Exception ex)
@@ -99,7 +99,7 @@ public class DoctorsController(ILogger<DoctorsController> logger, IDoctorService
 
         try
         {
-            DoctorResponse? updated = await _service.UpdateDoctorAsync(id, doctorDto);
+            var updated = await _service.UpdateDoctorAsync(id, doctorDto);
             if (updated is null)
             {
                 return NotFound();

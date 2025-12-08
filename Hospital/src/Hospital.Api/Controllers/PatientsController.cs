@@ -22,7 +22,7 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
         _logger.LogInformation("Called GetAll in PatientController");
         try
         {
-            List<PatientResponse> patients = await _service.GetAllPatientsAsync();
+            var patients = await _service.GetAllPatientsAsync();
             return Ok(patients);
         }
         catch (Exception ex)
@@ -42,7 +42,7 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
         _logger.LogInformation("Called GetById in PatientController");
         try
         {
-            PatientResponse? patient = await _service.GetPatientAsync(id);
+            var patient = await _service.GetPatientAsync(id);
             if (patient is null)
             {
                 return NotFound();
@@ -72,7 +72,7 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
 
         try
         {
-            PatientResponse entity = await _service.CreatePatientAsync(PatientDto);
+            var entity = await _service.CreatePatientAsync(PatientDto);
             return CreatedAtAction(nameof(GetById), new {entity.Id}, entity);
         }
         catch (Exception ex)
@@ -99,7 +99,7 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
 
         try
         {
-            PatientResponse? updated = await _service.UpdatePatientAsync(id, PatientDto);
+            var updated = await _service.UpdatePatientAsync(id, PatientDto);
             if (updated is null)
             {
                 return NotFound();

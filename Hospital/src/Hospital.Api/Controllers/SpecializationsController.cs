@@ -22,7 +22,7 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
         _logger.LogInformation("Called GetAll in SpecializationController");
         try
         {
-            List<SpecializationResponse> specializations = await _service.GetAllSpecializationsAsync();
+            var specializations = await _service.GetAllSpecializationsAsync();
             return Ok(specializations);
         }
         catch (Exception ex)
@@ -42,7 +42,7 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
         _logger.LogInformation("Called GetById in SpecializationController");
         try
         {
-            SpecializationResponse? specialization = await _service.GetSpecializationAsync(id);
+            var specialization = await _service.GetSpecializationAsync(id);
             if (specialization is null)
             {
                 return NotFound();
@@ -72,7 +72,7 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
 
         try
         {
-            SpecializationResponse entity = await _service.CreateSpecializationAsync(specializationDto);
+            var entity = await _service.CreateSpecializationAsync(specializationDto);
             return CreatedAtAction(nameof(GetById), new {entity.Id}, entity);
         }
         catch (Exception ex)
@@ -99,7 +99,7 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
 
         try
         {
-            SpecializationResponse? updated = await _service.UpdateSpecializationAsync(id, specializationDto);
+            var updated = await _service.UpdateSpecializationAsync(id, specializationDto);
             if (updated is null)
             {
                 return NotFound();
