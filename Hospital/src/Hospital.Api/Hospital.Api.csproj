@@ -9,7 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Pomelo.EntityFrameworkCore.MySql" Version="13.0.1" />
+    <PackageReference Include="Aspire.Pomelo.EntityFrameworkCore.MySql" Version="13.1.0" />
+    <PackageReference Include="Aspire.RabbitMQ.Client" Version="13.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
