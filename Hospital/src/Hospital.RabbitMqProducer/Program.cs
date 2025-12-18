@@ -12,7 +12,7 @@ builder.AddRabbitMQClient("RabbitMQ");
 
 builder.Services.AddHttpClient("HospitalApi", client =>
 {
-    client.BaseAddress = new Uri("http://hospital-api");
+    client.BaseAddress = new Uri("http://localhost:5260");
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
 

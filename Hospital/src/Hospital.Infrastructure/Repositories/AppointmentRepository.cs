@@ -22,7 +22,7 @@ public class AppointmentRepository(HospitalDbContext dbContext) : IRepository<Ap
     public async Task<List<Appointment>> GetAllAsync()
     {
         return await _dbContext.Appointments
-            .Include(x => x.Doctor)
+            .Include(x => x.Doctor!)
                 .ThenInclude(x => x.Specialization)
             .Include(x => x.Patient)
             .ToListAsync();
@@ -31,7 +31,7 @@ public class AppointmentRepository(HospitalDbContext dbContext) : IRepository<Ap
     public async Task<Appointment?> GetByIdAsync(Guid id)
     {
         return await _dbContext.Appointments
-            .Include(x => x.Doctor)
+            .Include(x => x.Doctor!)
                 .ThenInclude(x => x.Specialization)
             .Include(x => x.Patient)
             .FirstOrDefaultAsync(x => x.Id == id);

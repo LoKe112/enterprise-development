@@ -7,12 +7,22 @@ using RabbitMQ.Client;
 
 namespace Hospital.RabbitMqProducer;
 
+/// <summary>
+/// Background hosted service responsible for generating test data
+/// and publishing messages to RabbitMQ queues.
+/// </summary>
 internal sealed class RabbitMqProducer : BackgroundService
 {
     private readonly IConnectionFactory _connectionFactory;
     private readonly DataGenerator _dataGenerator;
     private readonly ILogger<RabbitMqProducer> _logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RabbitMqProducer"/> class.
+    /// </summary>
+    /// <param name="connectionFactory">RabbitMQ connection factory.</param>
+    /// <param name="dataGenerator">Service responsible for generating test data.</param>
+    /// <param name="logger">Logger instance.</param>
     public RabbitMqProducer(
         IConnectionFactory connectionFactory,
         DataGenerator dataGenerator,
@@ -23,6 +33,13 @@ internal sealed class RabbitMqProducer : BackgroundService
         _logger = logger;
     }
 
+    /// <summary>
+    /// Starts the producer by creating a RabbitMQ connection and channel,
+    /// declaring required queues, generating data, and publishing messages.
+    /// </summary>
+    /// <param name="stoppingToken">
+    /// Cancellation token that is triggered when the hosted service is stopping.
+    /// </param>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         await using var connection =
@@ -52,6 +69,11 @@ internal sealed class RabbitMqProducer : BackgroundService
         await Task.Delay(Timeout.Infinite, stoppingToken);
     }
 
+    /// <summary>
+    /// Declares all RabbitMQ queues required by the producer.
+    /// </summary>
+    /// <param name="channel">The RabbitMQ channel.</param>
+    /// <param name="ct">Cancellation token.</param>
     private static async Task DeclareQueuesAsync(
         IChannel channel,
         CancellationToken ct)
@@ -74,6 +96,14 @@ internal sealed class RabbitMqProducer : BackgroundService
         }
     }
 
+    /// <summary>
+    /// Publishes a collection of messages to the specified RabbitMQ queue.
+    /// </summary>
+    /// <typeparam name="T">The type of the message payload.</typeparam>
+    /// <param name="channel">The RabbitMQ channel.</param>
+    /// <param name="queue">The target queue name.</param>
+    /// <param name="messages">The messages to publish.</param>
+    /// <param name="ct">Cancellation token.</param>
     private async Task PublishAsync<T>(
         IChannel channel,
         string queue,
@@ -105,6 +135,10 @@ internal sealed class RabbitMqProducer : BackgroundService
             queue);
     }
 }
+
+/// <summary>
+/// Contains RabbitMQ queue names used by the producer.
+/// </summary>
 internal static class RabbitQueues
 {
     public const string Specializations = "specializations.create";

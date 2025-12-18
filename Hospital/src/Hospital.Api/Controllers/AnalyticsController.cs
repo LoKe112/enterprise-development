@@ -20,9 +20,6 @@ public class AnalyticsController(
     IAnalyticsService analyticsService,
     ILogger<AnalyticsController> logger) : ControllerBase
 {
-    private readonly IAnalyticsService _analyticsService = analyticsService;
-    private readonly ILogger<AnalyticsController> _logger = logger;
-
     /// <summary>
     /// Gets doctors with 10 or more years of experience.
     /// </summary>
@@ -34,9 +31,9 @@ public class AnalyticsController(
     public async Task<ActionResult<List<DoctorResponse>>> GetExperiencedDoctors(
         CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Getting doctors with at least 10 years of experience");
+        logger.LogInformation("Getting doctors with at least 10 years of experience");
 
-        var result = await _analyticsService.GetDoctorsWithExperienceAtLeast10Async(cancellationToken);
+        var result = await analyticsService.GetDoctorsWithExperienceAtLeast10Async(cancellationToken);
         return Ok(result);
     }
 
@@ -55,14 +52,14 @@ public class AnalyticsController(
         [FromRoute] Guid doctorId,
         CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Getting patients for doctor with ID: {DoctorId}", doctorId);
+        logger.LogInformation("Getting patients for doctor with ID: {DoctorId}", doctorId);
 
         if (doctorId == Guid.Empty)
         {
             return BadRequest("Doctor ID is required.");
         }
 
-        var result = await _analyticsService.GetPatientsByDoctorOrderedByFullNameAsync(
+        var result = await analyticsService.GetPatientsByDoctorOrderedByFullNameAsync(
             doctorId, cancellationToken);
 
         return Ok(result);
@@ -79,9 +76,9 @@ public class AnalyticsController(
     public async Task<ActionResult<List<(PatientResponse Patient, int Count)>>> GetFollowUpAppointmentCounts(
         CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Getting follow-up appointment counts for the last month");
+        logger.LogInformation("Getting follow-up appointment counts for the last month");
 
-        var result = await _analyticsService.GetFollowUpAppointmentsCountLastMonthAsync(cancellationToken);
+        var result = await analyticsService.GetFollowUpAppointmentsCountLastMonthAsync(cancellationToken);
         return Ok(result);
     }
 
@@ -96,9 +93,9 @@ public class AnalyticsController(
     public async Task<ActionResult<List<PatientResponse>>> GetPatientsOver30WithMultipleDoctors(
         CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Getting patients over 30 with appointments to multiple doctors");
+        logger.LogInformation("Getting patients over 30 with appointments to multiple doctors");
 
-        var result = await _analyticsService.GetPatientsOver30WithMultipleDoctorsOrderedByBirthDateAsync(cancellationToken);
+        var result = await analyticsService.GetPatientsOver30WithMultipleDoctorsOrderedByBirthDateAsync(cancellationToken);
         return Ok(result);
     }
 
@@ -117,14 +114,14 @@ public class AnalyticsController(
         [FromRoute][Required] string roomNumber,
         CancellationToken cancellationToken = default)
     {
-        _logger.LogInformation("Getting appointments in room: {RoomNumber} for current month", roomNumber);
+        logger.LogInformation("Getting appointments in room: {RoomNumber} for current month", roomNumber);
 
         if (string.IsNullOrWhiteSpace(roomNumber))
         {
             return BadRequest("Room number is required.");
         }
 
-        var result = await _analyticsService.GetAppointmentsInSelectedRoomThisMonthAsync(
+        var result = await analyticsService.GetAppointmentsInSelectedRoomThisMonthAsync(
             roomNumber, cancellationToken);
 
         return Ok(result);

@@ -1,5 +1,6 @@
 ﻿using Hospital.Application.Services;
 using Hospital.Application.Services.Abstractions;
+using Hospital.Domain;
 using Hospital.Domain.Models;
 using Hospital.Domain.Repositories.Abstractions;
 using Hospital.Infrastructure;
@@ -13,6 +14,7 @@ var builder = Host.CreateApplicationBuilder(args);
 
 builder.Services.AddLogging();
 
+builder.Services.AddSingleton<DataSeeder>();
 
 builder.AddMySqlDbContext<HospitalDbContext>("HospitalDatabase",
     settings =>

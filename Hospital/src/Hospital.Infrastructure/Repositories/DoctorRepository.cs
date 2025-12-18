@@ -16,6 +16,9 @@ public class DoctorRepository(HospitalDbContext dbContext) : IRepository<Doctor>
     {
         _dbContext.Doctors.Add(entity);
         await _dbContext.SaveChangesAsync();
+
+        await _dbContext.Entry(entity).Reference(x => x.Specialization).LoadAsync();
+
         return entity;
     }
 
