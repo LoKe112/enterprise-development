@@ -1,41 +1,32 @@
-﻿using System.Text;
-using System.Text.Json;
-using Hospital.Contracts;
+﻿using Hospital.Contracts;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
+using System.Text;
+using System.Text.Json;
 
 namespace Hospital.RabbitMqProducer;
 
 /// <summary>
-/// Background hosted service responsible for generating test data
+/// Background hosted service responsible for periodically generating test data
 /// and publishing messages to RabbitMQ queues.
 /// </summary>
-internal sealed class RabbitMqProducer : BackgroundService
+/// <remarks>
+/// Initializes a new instance of the <see cref="RabbitMqProducer"/> class.
+/// </remarks>
+/// <param name="connectionFactory">RabbitMQ connection factory.</param>
+/// <param name="dataGenerator">Service responsible for generating test data.</param>
+/// <param name="logger">Logger instance.</param>
+internal sealed class RabbitMqProducer(
+    IConnectionFactory connectionFactory,
+    DataGenerator dataGenerator,
+    ILogger<RabbitMqProducer> logger) : BackgroundService
 {
-    private readonly IConnectionFactory _connectionFactory;
-    private readonly DataGenerator _dataGenerator;
-    private readonly ILogger<RabbitMqProducer> _logger;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RabbitMqProducer"/> class.
-    /// </summary>
-    /// <param name="connectionFactory">RabbitMQ connection factory.</param>
-    /// <param name="dataGenerator">Service responsible for generating test data.</param>
-    /// <param name="logger">Logger instance.</param>
-    public RabbitMqProducer(
-        IConnectionFactory connectionFactory,
-        DataGenerator dataGenerator,
-        ILogger<RabbitMqProducer> logger)
-    {
-        _connectionFactory = connectionFactory;
-        _dataGenerator = dataGenerator;
-        _logger = logger;
-    }
+    private readonly TimeSpan _publishInterval = TimeSpan.FromSeconds(20);
 
     /// <summary>
     /// Starts the producer by creating a RabbitMQ connection and channel,
-    /// declaring required queues, generating data, and publishing messages.
+    /// declaring required queues, and periodically publishing generated data.
     /// </summary>
     /// <param name="stoppingToken">
     /// Cancellation token that is triggered when the hosted service is stopping.
@@ -43,30 +34,50 @@ internal sealed class RabbitMqProducer : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         await using var connection =
-            await _connectionFactory.CreateConnectionAsync(stoppingToken);
+            await connectionFactory.CreateConnectionAsync(stoppingToken);
 
         await using var channel =
             await connection.CreateChannelAsync(cancellationToken: stoppingToken);
 
         await DeclareQueuesAsync(channel, stoppingToken);
 
-        _logger.LogInformation("RabbitMQ Producer started");
+        logger.LogInformation("RabbitMQ Producer started. Publishing every {Interval} seconds",
+            _publishInterval.TotalSeconds);
 
-        var specializations = await _dataGenerator.GenerateSpecoalizations(5);
-        await PublishAsync(channel, RabbitQueues.Specializations, specializations, stoppingToken);
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            try
+            {
+                await PublishBatchAsync(channel, stoppingToken);
+                logger.LogInformation("Batch of messages published successfully");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error occurred while publishing messages");
+            }
 
-        var doctors = await _dataGenerator.GenerateDoctors(10);
-        await PublishAsync(channel, RabbitQueues.Doctors, doctors, stoppingToken);
+            await Task.Delay(_publishInterval, stoppingToken);
+        }
 
-        var patients = await _dataGenerator.GeneratePatients(20);
-        await PublishAsync(channel, RabbitQueues.Patients, patients, stoppingToken);
+        logger.LogInformation("RabbitMQ Producer stopped");
+    }
 
-        var appointments = await _dataGenerator.GenerateAppointments(30);
-        await PublishAsync(channel, RabbitQueues.Appointments, appointments, stoppingToken);
+    /// <summary>
+    /// Publishes a batch of generated messages to all queues.
+    /// </summary>
+    private async Task PublishBatchAsync(IChannel channel, CancellationToken ct)
+    {
+        var specializations = await dataGenerator.GenerateSpecializations(5);
+        await PublishAsync(channel, RabbitQueues.Specializations, specializations, ct);
 
-        _logger.LogInformation("All messages published");
+        var doctors = await dataGenerator.GenerateDoctors(10);
+        await PublishAsync(channel, RabbitQueues.Doctors, doctors, ct);
 
-        await Task.Delay(Timeout.Infinite, stoppingToken);
+        var patients = await dataGenerator.GeneratePatients(20);
+        await PublishAsync(channel, RabbitQueues.Patients, patients, ct);
+
+        var appointments = await dataGenerator.GenerateAppointments(30);
+        await PublishAsync(channel, RabbitQueues.Appointments, appointments, ct);
     }
 
     /// <summary>
@@ -129,7 +140,7 @@ internal sealed class RabbitMqProducer : BackgroundService
                 cancellationToken: ct);
         }
 
-        _logger.LogInformation(
+        logger.LogInformation(
             "Published {Count} messages to {Queue}",
             messages.Count(),
             queue);
@@ -139,10 +150,3 @@ internal sealed class RabbitMqProducer : BackgroundService
 /// <summary>
 /// Contains RabbitMQ queue names used by the producer.
 /// </summary>
-internal static class RabbitQueues
-{
-    public const string Specializations = "specializations.create";
-    public const string Doctors = "doctors.create";
-    public const string Patients = "patients.create";
-    public const string Appointments = "appointments.create";
-}

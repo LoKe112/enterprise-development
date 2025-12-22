@@ -30,9 +30,9 @@ public class AppointmentResponse
     /// </summary>
     public required Guid PatientId { get; set; }
 
-    public required PatientResponse Patient { get; set; }
+    public required PatientResponse? Patient { get; set; }
 
-    public required DoctorResponse Doctor { get; set; }
+    public required DoctorResponse? Doctor { get; set; }
     /// <summary>
     /// Identifier of the doctor associated with this appointment.
     /// </summary>

@@ -64,92 +64,92 @@ namespace Hospital.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e750e7f5-620c-46bd-bf9a-a450c1f9856e"),
+                            Id = new Guid("b90a5a17-5364-4c3c-8dd5-9b1e0ec4be09"),
                             AppointmentDateTime = new DateTimeOffset(new DateTime(2024, 3, 15, 10, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            DoctorId = new Guid("d0e1cb98-d7dd-49c5-8605-ff68176c3160"),
+                            DoctorId = new Guid("8efc51d1-ad5d-4f9a-a9fa-1e1d67e665e8"),
                             IsFollowUp = false,
-                            PatientId = new Guid("9838ccd2-7a54-4bd2-9eba-2891913accd9"),
+                            PatientId = new Guid("7e6d96bc-ac36-47a2-a09b-f671ed094570"),
                             RoomNumber = "101a"
                         },
                         new
                         {
-                            Id = new Guid("633f8f1d-cdc0-425e-8780-4807970946f5"),
+                            Id = new Guid("9dc011e9-d231-4035-ba24-5a781f1e9849"),
                             AppointmentDateTime = new DateTimeOffset(new DateTime(2024, 3, 16, 14, 30, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            DoctorId = new Guid("510c69f9-31a1-430d-85ef-a4967de4ce49"),
+                            DoctorId = new Guid("00e3797d-409e-43ce-8524-3acdaa6ea730"),
                             IsFollowUp = true,
-                            PatientId = new Guid("701c8638-70ff-475a-97d8-c7014916e158"),
+                            PatientId = new Guid("7b84c310-4e6f-4369-a41d-f4590e40c596"),
                             RoomNumber = "205"
                         },
                         new
                         {
-                            Id = new Guid("4f2c1a01-f573-40a7-a06b-3e394be9ca0f"),
+                            Id = new Guid("efeee871-68d6-49fe-bf0a-abe54c67b322"),
                             AppointmentDateTime = new DateTimeOffset(new DateTime(2024, 3, 17, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            DoctorId = new Guid("63477dbe-81bf-4eef-ada4-1c698440548d"),
+                            DoctorId = new Guid("0bd859e7-41c5-4872-966a-83d28466d220"),
                             IsFollowUp = false,
-                            PatientId = new Guid("efe1f4d8-4c12-4b50-b82e-9b3a4878657d"),
+                            PatientId = new Guid("38db15f1-f410-4fdd-8ae4-009aaabcd7d8"),
                             RoomNumber = "101"
                         },
                         new
                         {
-                            Id = new Guid("82324979-ff64-45af-bf79-8f628ada5fc9"),
+                            Id = new Guid("2e54c00a-6784-4cae-a618-a24141cc997d"),
                             AppointmentDateTime = new DateTimeOffset(new DateTime(2025, 8, 27, 11, 30, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            DoctorId = new Guid("63d138c0-74c7-4fee-85c1-447e592b5ed0"),
+                            DoctorId = new Guid("be04fe70-5e98-49a1-b9e9-73fba7419da0"),
                             IsFollowUp = true,
-                            PatientId = new Guid("701c8638-70ff-475a-97d8-c7014916e158"),
+                            PatientId = new Guid("7b84c310-4e6f-4369-a41d-f4590e40c596"),
                             RoomNumber = "302"
                         },
                         new
                         {
-                            Id = new Guid("09a636f2-fff7-459d-8cf4-dd3430d5f342"),
+                            Id = new Guid("acdcc23e-a457-4141-b478-f0f04bbcf313"),
                             AppointmentDateTime = new DateTimeOffset(new DateTime(2024, 3, 16, 14, 30, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            DoctorId = new Guid("d0e1cb98-d7dd-49c5-8605-ff68176c3160"),
+                            DoctorId = new Guid("8efc51d1-ad5d-4f9a-a9fa-1e1d67e665e8"),
                             IsFollowUp = true,
-                            PatientId = new Guid("b10a50d2-4cb6-42c1-83da-a6c7117aeeac"),
+                            PatientId = new Guid("eb7dc1f2-1131-4fef-b36a-183996c4f224"),
                             RoomNumber = "205b"
                         },
                         new
                         {
-                            Id = new Guid("a50dd755-4af8-4a1d-a5b6-b8ead24a892e"),
+                            Id = new Guid("75df2b96-c3d7-4279-9325-509fce49bcc1"),
                             AppointmentDateTime = new DateTimeOffset(new DateTime(2025, 9, 12, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            DoctorId = new Guid("625e23fc-240a-4db3-99c5-32e4e2e17676"),
+                            DoctorId = new Guid("371c0f3f-1bbb-40fa-8eb1-7e755a4ca230"),
                             IsFollowUp = false,
-                            PatientId = new Guid("2db0cc68-8de3-4340-b824-6149e9845e89"),
+                            PatientId = new Guid("2e812a2a-8ccf-451f-bec9-d22abc0ce387"),
                             RoomNumber = "111"
                         },
                         new
                         {
-                            Id = new Guid("a8495792-da0a-459a-9c0e-7369522e53ad"),
+                            Id = new Guid("c2dfdda5-3d00-4f70-b732-f2d96bbda44c"),
                             AppointmentDateTime = new DateTimeOffset(new DateTime(2025, 9, 3, 11, 30, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            DoctorId = new Guid("d2ad7cab-939e-41c1-9b98-b1a9d1c1e67a"),
+                            DoctorId = new Guid("12d89e4f-2cb4-47df-b7dd-e31977805ce6"),
                             IsFollowUp = true,
-                            PatientId = new Guid("99b30229-b463-464f-88ea-0107fc41b0a0"),
+                            PatientId = new Guid("65ad0c88-bfc1-454f-9cb0-f70f2fa76edd"),
                             RoomNumber = "402"
                         },
                         new
                         {
-                            Id = new Guid("f288fb39-6460-48ac-a4d6-f27cd687e862"),
+                            Id = new Guid("adc63525-2d03-4825-9e92-c03ccfdc45fc"),
                             AppointmentDateTime = new DateTimeOffset(new DateTime(2024, 2, 16, 14, 30, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            DoctorId = new Guid("1e598b02-c3be-4572-aaaf-2afa1853619e"),
+                            DoctorId = new Guid("7d9c6f1a-39e4-4834-9d9c-84eb0ee6b51c"),
                             IsFollowUp = true,
-                            PatientId = new Guid("b524fb6a-0b69-4b3b-b9eb-6a0e6c4a56ad"),
+                            PatientId = new Guid("81d8168d-01e1-4efe-8177-418648f47c8a"),
                             RoomNumber = "217a"
                         },
                         new
                         {
-                            Id = new Guid("f6d62c69-2f26-486d-8189-f38b4552e683"),
+                            Id = new Guid("79513998-9403-4899-95c6-8c9822f59e88"),
                             AppointmentDateTime = new DateTimeOffset(new DateTime(2024, 8, 17, 9, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            DoctorId = new Guid("bd99c5f1-3697-4e0d-bd22-af813a063a5e"),
+                            DoctorId = new Guid("48800168-8cb8-482b-9b21-13ccc9e9e5b4"),
                             IsFollowUp = false,
-                            PatientId = new Guid("d165e993-705a-44ef-b340-df1dcc4bae09"),
+                            PatientId = new Guid("47805386-754c-4c1c-b248-000ee803b496"),
                             RoomNumber = "102"
                         },
                         new
                         {
-                            Id = new Guid("77a922cc-4719-4e4e-91af-7dc2d8c8694f"),
+                            Id = new Guid("dda29f9f-2d45-4340-83d5-139e9f03f210"),
                             AppointmentDateTime = new DateTimeOffset(new DateTime(2025, 9, 18, 11, 30, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            DoctorId = new Guid("4809a06b-78a1-4bac-b4a3-4b69a814c4c1"),
+                            DoctorId = new Guid("646de129-7522-4b68-9a49-61ae5eb74b11"),
                             IsFollowUp = true,
-                            PatientId = new Guid("09d0cf7d-84bd-4c9b-8a40-9d7da02a75a8"),
+                            PatientId = new Guid("1773f4a2-6ac9-4b15-9833-8732419eec4b"),
                             RoomNumber = "101a"
                         });
                 });
@@ -194,92 +194,92 @@ namespace Hospital.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d0e1cb98-d7dd-49c5-8605-ff68176c3160"),
+                            Id = new Guid("8efc51d1-ad5d-4f9a-a9fa-1e1d67e665e8"),
                             ExperienceYears = 20,
                             FullName = "Сидоров Алексей Петрович",
                             PassportNumber = "6211 100001",
-                            SpecializationId = new Guid("2ddda41b-811b-4207-8d62-7bd6f380302e"),
+                            SpecializationId = new Guid("153922c2-d6b3-45b4-a3d3-a4e8f2b6c36b"),
                             YearOfBirth = 1975
                         },
                         new
                         {
-                            Id = new Guid("510c69f9-31a1-430d-85ef-a4967de4ce49"),
+                            Id = new Guid("00e3797d-409e-43ce-8524-3acdaa6ea730"),
                             ExperienceYears = 15,
                             FullName = "Кузнецова Елена Владимировна",
                             PassportNumber = "6311 100002",
-                            SpecializationId = new Guid("d893ad2c-ae54-4eaa-8092-36bf3c0aa882"),
+                            SpecializationId = new Guid("27bcf4af-b769-4593-98c1-c27a716ee15c"),
                             YearOfBirth = 1980
                         },
                         new
                         {
-                            Id = new Guid("63477dbe-81bf-4eef-ada4-1c698440548d"),
+                            Id = new Guid("0bd859e7-41c5-4872-966a-83d28466d220"),
                             ExperienceYears = 12,
                             FullName = "Петров Дмитрий Иванович",
                             PassportNumber = "6411 100003",
-                            SpecializationId = new Guid("9526c9b9-9bc2-4ba2-8c5d-d5f37f4a9ddc"),
+                            SpecializationId = new Guid("84300ed6-61d2-4dca-bd2c-cb5231c3580c"),
                             YearOfBirth = 1982
                         },
                         new
                         {
-                            Id = new Guid("63d138c0-74c7-4fee-85c1-447e592b5ed0"),
+                            Id = new Guid("be04fe70-5e98-49a1-b9e9-73fba7419da0"),
                             ExperienceYears = 18,
                             FullName = "Павлова Ольга Сергеевна",
                             PassportNumber = "6511 100004",
-                            SpecializationId = new Guid("f5bd5316-537e-48d2-86e2-ccb75e907d4c"),
+                            SpecializationId = new Guid("a018227a-57bf-4e3e-bea9-24ab89683fa3"),
                             YearOfBirth = 1978
                         },
                         new
                         {
-                            Id = new Guid("625e23fc-240a-4db3-99c5-32e4e2e17676"),
+                            Id = new Guid("371c0f3f-1bbb-40fa-8eb1-7e755a4ca230"),
                             ExperienceYears = 10,
                             FullName = "Попов Михаил Александрович",
                             PassportNumber = "6611 100005",
-                            SpecializationId = new Guid("b2e11556-ddd6-4f73-a282-83e04cae99b6"),
+                            SpecializationId = new Guid("85c11f07-8f4f-4a32-b9ac-a0a9372feb4f"),
                             YearOfBirth = 1985
                         },
                         new
                         {
-                            Id = new Guid("83a896b2-a6c4-4468-84fc-26399a3db1ff"),
+                            Id = new Guid("5ee38cbd-121b-49c3-8de9-50da2cf8ef89"),
                             ExperienceYears = 7,
                             FullName = "Смирнова Татьяна Николаевна",
                             PassportNumber = "6711 100006",
-                            SpecializationId = new Guid("d93d55bd-6914-4b1f-94fd-774f974dd3f3"),
+                            SpecializationId = new Guid("c71552c5-4b28-4f0c-a62c-ac131a519059"),
                             YearOfBirth = 1990
                         },
                         new
                         {
-                            Id = new Guid("d2ad7cab-939e-41c1-9b98-b1a9d1c1e67a"),
+                            Id = new Guid("12d89e4f-2cb4-47df-b7dd-e31977805ce6"),
                             ExperienceYears = 25,
                             FullName = "Васильев Андрей Викторович",
                             PassportNumber = "6811 100007",
-                            SpecializationId = new Guid("8f100466-4664-4124-8ef9-0268f6d20718"),
+                            SpecializationId = new Guid("acef342c-afab-46f1-8405-64a47d52ae94"),
                             YearOfBirth = 1970
                         },
                         new
                         {
-                            Id = new Guid("1e598b02-c3be-4572-aaaf-2afa1853619e"),
+                            Id = new Guid("7d9c6f1a-39e4-4834-9d9c-84eb0ee6b51c"),
                             ExperienceYears = 9,
                             FullName = "Федорова Наталья Игоревна",
                             PassportNumber = "6911 100008",
-                            SpecializationId = new Guid("a3d48bd8-dc4a-4b05-b3dc-57bde5ba751c"),
+                            SpecializationId = new Guid("c21f32c0-7e92-4f30-b563-ead686408d99"),
                             YearOfBirth = 1988
                         },
                         new
                         {
-                            Id = new Guid("bd99c5f1-3697-4e0d-bd22-af813a063a5e"),
+                            Id = new Guid("48800168-8cb8-482b-9b21-13ccc9e9e5b4"),
                             ExperienceYears = 30,
                             FullName = "Алексеев Геннадий Степанович",
                             PassportNumber = "6011 100009",
-                            SpecializationId = new Guid("2ddda41b-811b-4207-8d62-7bd6f380302e"),
+                            SpecializationId = new Guid("153922c2-d6b3-45b4-a3d3-a4e8f2b6c36b"),
                             YearOfBirth = 1965
                         },
                         new
                         {
-                            Id = new Guid("4809a06b-78a1-4bac-b4a3-4b69a814c4c1"),
+                            Id = new Guid("646de129-7522-4b68-9a49-61ae5eb74b11"),
                             ExperienceYears = 14,
                             FullName = "Дмитриева Светлана Олеговна",
                             PassportNumber = "6723 100010",
-                            SpecializationId = new Guid("d893ad2c-ae54-4eaa-8092-36bf3c0aa882"),
+                            SpecializationId = new Guid("27bcf4af-b769-4593-98c1-c27a716ee15c"),
                             YearOfBirth = 1983
                         });
                 });
@@ -335,7 +335,7 @@ namespace Hospital.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("9838ccd2-7a54-4bd2-9eba-2891913accd9"),
+                            Id = new Guid("7e6d96bc-ac36-47a2-a09b-f671ed094570"),
                             Address = "ул. Карбышева, д. 81, кв. 46",
                             BloodGroup = 1,
                             DateOfBirth = new DateOnly(2001, 9, 13),
@@ -347,7 +347,7 @@ namespace Hospital.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("701c8638-70ff-475a-97d8-c7014916e158"),
+                            Id = new Guid("7b84c310-4e6f-4369-a41d-f4590e40c596"),
                             Address = "ул. Ленина, д. 25, кв. 12",
                             BloodGroup = 0,
                             DateOfBirth = new DateOnly(1980, 5, 17),
@@ -359,7 +359,7 @@ namespace Hospital.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("efe1f4d8-4c12-4b50-b82e-9b3a4878657d"),
+                            Id = new Guid("38db15f1-f410-4fdd-8ae4-009aaabcd7d8"),
                             Address = "пр. Победы, д. 15, кв. 8",
                             BloodGroup = 2,
                             DateOfBirth = new DateOnly(1985, 3, 10),
@@ -371,7 +371,7 @@ namespace Hospital.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f3c54e7b-e4c3-48b0-ae13-8d74b6c89f2e"),
+                            Id = new Guid("df83ef59-220f-4650-a068-180fa0d3b081"),
                             Address = "ул. Советская, д. 7, кв. 3",
                             BloodGroup = 3,
                             DateOfBirth = new DateOnly(1992, 12, 5),
@@ -383,7 +383,7 @@ namespace Hospital.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b10a50d2-4cb6-42c1-83da-a6c7117aeeac"),
+                            Id = new Guid("eb7dc1f2-1131-4fef-b36a-183996c4f224"),
                             Address = "ул. Гагарина, д. 33, кв. 15",
                             BloodGroup = 1,
                             DateOfBirth = new DateOnly(1978, 7, 18),
@@ -395,7 +395,7 @@ namespace Hospital.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2db0cc68-8de3-4340-b824-6149e9845e89"),
+                            Id = new Guid("2e812a2a-8ccf-451f-bec9-d22abc0ce387"),
                             Address = "ул. Мира, д. 12, кв. 9",
                             BloodGroup = 0,
                             DateOfBirth = new DateOnly(1988, 2, 28),
@@ -407,7 +407,7 @@ namespace Hospital.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d165e993-705a-44ef-b340-df1dcc4bae09"),
+                            Id = new Guid("47805386-754c-4c1c-b248-000ee803b496"),
                             Address = "пр. Независимости, д. 45, кв. 22",
                             BloodGroup = 2,
                             DateOfBirth = new DateOnly(1995, 9, 14),
@@ -419,7 +419,7 @@ namespace Hospital.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b524fb6a-0b69-4b3b-b9eb-6a0e6c4a56ad"),
+                            Id = new Guid("81d8168d-01e1-4efe-8177-418648f47c8a"),
                             Address = "ул. Фрунзе, д. 18, кв. 6",
                             BloodGroup = 1,
                             DateOfBirth = new DateOnly(1983, 11, 30),
@@ -431,7 +431,7 @@ namespace Hospital.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("99b30229-b463-464f-88ea-0107fc41b0a0"),
+                            Id = new Guid("65ad0c88-bfc1-454f-9cb0-f70f2fa76edd"),
                             Address = "ул. Кирова, д. 27, кв. 11",
                             BloodGroup = 3,
                             DateOfBirth = new DateOnly(1975, 4, 25),
@@ -443,7 +443,7 @@ namespace Hospital.Infrastructure.Migrations
                         },
                         new
                         {
-                            Id = new Guid("09d0cf7d-84bd-4c9b-8a40-9d7da02a75a8"),
+                            Id = new Guid("1773f4a2-6ac9-4b15-9833-8732419eec4b"),
                             Address = "ул. Пушкинская, д. 9, кв. 4",
                             BloodGroup = 0,
                             DateOfBirth = new DateOnly(1998, 6, 8),
@@ -475,42 +475,42 @@ namespace Hospital.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2ddda41b-811b-4207-8d62-7bd6f380302e"),
+                            Id = new Guid("153922c2-d6b3-45b4-a3d3-a4e8f2b6c36b"),
                             Name = "Терапевт"
                         },
                         new
                         {
-                            Id = new Guid("9526c9b9-9bc2-4ba2-8c5d-d5f37f4a9ddc"),
+                            Id = new Guid("84300ed6-61d2-4dca-bd2c-cb5231c3580c"),
                             Name = "Хирург"
                         },
                         new
                         {
-                            Id = new Guid("d893ad2c-ae54-4eaa-8092-36bf3c0aa882"),
+                            Id = new Guid("27bcf4af-b769-4593-98c1-c27a716ee15c"),
                             Name = "Кардиолог"
                         },
                         new
                         {
-                            Id = new Guid("f5bd5316-537e-48d2-86e2-ccb75e907d4c"),
+                            Id = new Guid("a018227a-57bf-4e3e-bea9-24ab89683fa3"),
                             Name = "Невролог"
                         },
                         new
                         {
-                            Id = new Guid("b2e11556-ddd6-4f73-a282-83e04cae99b6"),
+                            Id = new Guid("85c11f07-8f4f-4a32-b9ac-a0a9372feb4f"),
                             Name = "Офтальмолог"
                         },
                         new
                         {
-                            Id = new Guid("d93d55bd-6914-4b1f-94fd-774f974dd3f3"),
+                            Id = new Guid("c71552c5-4b28-4f0c-a62c-ac131a519059"),
                             Name = "Стоматолог"
                         },
                         new
                         {
-                            Id = new Guid("8f100466-4664-4124-8ef9-0268f6d20718"),
+                            Id = new Guid("acef342c-afab-46f1-8405-64a47d52ae94"),
                             Name = "Педиатр"
                         },
                         new
                         {
-                            Id = new Guid("a3d48bd8-dc4a-4b05-b3dc-57bde5ba751c"),
+                            Id = new Guid("c21f32c0-7e92-4f30-b563-ead686408d99"),
                             Name = "Дерматолог"
                         });
                 });

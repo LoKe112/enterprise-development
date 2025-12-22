@@ -1,7 +1,5 @@
-﻿using Hospital.Application.Mappers;
+﻿using Hospital.Application.Services.Abstractions;
 using Hospital.Contracts;
-using Hospital.Domain.Models;
-using Hospital.Application.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital.Api.Controllers;
@@ -10,24 +8,21 @@ namespace Hospital.Api.Controllers;
 [ApiController]
 public class PatientsController(ILogger<PatientsController> logger, IPatientService service) : ControllerBase
 {
-    private readonly ILogger<PatientsController> _logger = logger;
-    private readonly IPatientService _service = service;
-
     /// <summary>Returns all patients.</summary>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<List<PatientResponse>>> GetAll()
     {
-        _logger.LogInformation("Called GetAll in PatientController");
+        logger.LogInformation("Called GetAll in PatientController");
         try
         {
-            var patients = await _service.GetAllPatientsAsync();
+            var patients = await service.GetAllPatientsAsync();
             return Ok(patients);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in GetAll");
+            logger.LogError(ex, "Error occurred in GetAll");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }
@@ -39,10 +34,10 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<PatientResponse>> GetById(Guid id)
     {
-        _logger.LogInformation("Called GetById in PatientController");
+        logger.LogInformation("Called GetById in PatientController");
         try
         {
-            var patient = await _service.GetPatientAsync(id);
+            var patient = await service.GetPatientAsync(id);
             if (patient is null)
             {
                 return NotFound();
@@ -51,7 +46,7 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in GetById");
+            logger.LogError(ex, "Error occurred in GetById");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }
@@ -63,7 +58,7 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> Create([FromBody] PatientRequest PatientDto)
     {
-        _logger.LogInformation("Called Create in PatientController");
+        logger.LogInformation("Called Create in PatientController");
 
         if (PatientDto is null)
         {
@@ -72,12 +67,12 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
 
         try
         {
-            var entity = await _service.CreatePatientAsync(PatientDto);
+            var entity = await service.CreatePatientAsync(PatientDto);
             return CreatedAtAction(nameof(GetById), new {entity.Id}, entity);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in Create");
+            logger.LogError(ex, "Error occurred in Create");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }
@@ -90,7 +85,7 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<PatientResponse>> Update(Guid id, [FromBody] PatientRequest PatientDto)
     {
-        _logger.LogInformation("Called Update in PatientController");
+        logger.LogInformation("Called Update in PatientController");
 
         if (PatientDto is null)
         {
@@ -99,7 +94,7 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
 
         try
         {
-            var updated = await _service.UpdatePatientAsync(id, PatientDto);
+            var updated = await service.UpdatePatientAsync(id, PatientDto);
             if (updated is null)
             {
                 return NotFound();
@@ -109,7 +104,7 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in Update");
+            logger.LogError(ex, "Error occurred in Update");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }
@@ -121,16 +116,16 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> Delete(Guid id)
     {
-        _logger.LogInformation("Called Delete in PatientController");
+        logger.LogInformation("Called Delete in PatientController");
 
         try
         {
-            var deleted = await _service.DeletePatientAsync(id);
+            var deleted = await service.DeletePatientAsync(id);
             return NoContent();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in Delete");
+            logger.LogError(ex, "Error occurred in Delete");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }

@@ -1,12 +1,12 @@
-﻿using System.Text;
-using System.Text.Json;
-using Hospital.Application.Services.Abstractions;
+﻿using Hospital.Application.Services.Abstractions;
 using Hospital.Contracts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using System.Text;
+using System.Text.Json;
 
 namespace Hospital.RabbitMqConsumer;
 
@@ -14,30 +14,19 @@ namespace Hospital.RabbitMqConsumer;
 /// Background service that consumes messages from RabbitMQ queues
 /// and delegates processing to application services.
 /// </summary>
-internal sealed class RabbitMqConsumer : BackgroundService
+/// <remarks>
+/// Initializes a new instance of the <see cref="RabbitMqConsumer"/> class.
+/// </remarks>
+/// <param name="connectionFactory">RabbitMQ connection factory.</param>
+/// <param name="scopeFactory">Factory for creating dependency injection scopes.</param>
+/// <param name="logger">Logger instance.</param>
+internal sealed class RabbitMqConsumer(
+    IConnectionFactory connectionFactory,
+    IServiceScopeFactory scopeFactory,
+    ILogger<RabbitMqConsumer> logger) : BackgroundService
 {
-    private readonly IConnectionFactory _connectionFactory;
-    private readonly IServiceScopeFactory _scopeFactory;
-    private readonly ILogger<RabbitMqConsumer> _logger;
-
     private IConnection? _connection;
     private IChannel? _channel;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="RabbitMqConsumer"/> class.
-    /// </summary>
-    /// <param name="connectionFactory">RabbitMQ connection factory.</param>
-    /// <param name="scopeFactory">Factory for creating dependency injection scopes.</param>
-    /// <param name="logger">Logger instance.</param>
-    public RabbitMqConsumer(
-        IConnectionFactory connectionFactory,
-        IServiceScopeFactory scopeFactory,
-        ILogger<RabbitMqConsumer> logger)
-    {
-        _connectionFactory = connectionFactory;
-        _scopeFactory = scopeFactory;
-        _logger = logger;
-    }
 
     /// <summary>
     /// Starts the RabbitMQ consumer by creating a connection and channel,
@@ -48,7 +37,7 @@ internal sealed class RabbitMqConsumer : BackgroundService
     /// </param>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _connection = await _connectionFactory.CreateConnectionAsync(stoppingToken);
+        _connection = await connectionFactory.CreateConnectionAsync(stoppingToken);
         _channel = await _connection.CreateChannelAsync(cancellationToken: stoppingToken);
 
         await DeclareQueuesAsync(_channel, stoppingToken);
@@ -58,7 +47,7 @@ internal sealed class RabbitMqConsumer : BackgroundService
         await StartConsumeAsync<PatientRequest>(_channel, RabbitQueues.Patients, HandlePatientAsync, stoppingToken);
         await StartConsumeAsync<AppointmentRequest>(_channel, RabbitQueues.Appointments, HandleAppointmentAsync, stoppingToken);
 
-        _logger.LogInformation("RabbitMQ Consumer started");
+        logger.LogInformation("RabbitMQ Consumer started");
 
         await Task.Delay(Timeout.Infinite, stoppingToken);
     }
@@ -109,7 +98,7 @@ internal sealed class RabbitMqConsumer : BackgroundService
 
         consumer.ReceivedAsync += async (_, ea) =>
         {
-            await using var scope = _scopeFactory.CreateAsyncScope();
+            await using var scope = scopeFactory.CreateAsyncScope();
 
             try
             {
@@ -122,7 +111,7 @@ internal sealed class RabbitMqConsumer : BackgroundService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error processing message from {Queue}", queue);
+                logger.LogError(ex, "Error processing message from {Queue}", queue);
 
                 await channel.BasicNackAsync(
                     ea.DeliveryTag,
@@ -213,15 +202,4 @@ internal sealed class RabbitMqConsumer : BackgroundService
 
         await base.StopAsync(cancellationToken);
     }
-}
-
-/// <summary>
-/// Contains RabbitMQ queue names used by the consumer.
-/// </summary>
-internal static class RabbitQueues
-{
-    public const string Specializations = "specializations.create";
-    public const string Doctors = "doctors.create";
-    public const string Patients = "patients.create";
-    public const string Appointments = "appointments.create";
 }

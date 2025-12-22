@@ -1,8 +1,6 @@
 using Hospital.RabbitMqProducer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RabbitMQ.Client;
-
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -10,13 +8,15 @@ builder.Services.AddLogging();
 
 builder.AddRabbitMQClient("RabbitMQ");
 
-builder.Services.AddHttpClient("HospitalApi", client =>
-{
-    client.BaseAddress = new Uri("http://localhost:5260");
-    client.DefaultRequestHeaders.Add("Accept", "application/json");
-});
+builder.Services.AddServiceDiscovery();
 
-builder.Services.AddSingleton<DataGenerator>();
+builder.Services.AddHttpClient("hospital-api", client =>
+{
+    client.BaseAddress = new Uri("https+http://hospital-api");   
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+}).AddServiceDiscovery();
+
+builder.Services.AddTransient<DataGenerator>();
 
 builder.Services.AddHostedService<RabbitMqProducer>();
 

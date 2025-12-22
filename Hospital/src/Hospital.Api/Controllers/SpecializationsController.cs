@@ -1,7 +1,5 @@
-﻿using Hospital.Application.Mappers;
+﻿using Hospital.Application.Services.Abstractions;
 using Hospital.Contracts;
-using Hospital.Domain.Models;
-using Hospital.Application.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital.Api.Controllers;
@@ -10,24 +8,21 @@ namespace Hospital.Api.Controllers;
 [ApiController]
 public class SpecializationsController(ILogger<SpecializationsController> logger, ISpecializationService service) : ControllerBase
 {
-    private readonly ILogger<SpecializationsController> _logger = logger;
-    private readonly ISpecializationService _service = service;
-
     /// <summary>Returns all specializations.</summary>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<List<SpecializationResponse>>> GetAll()
     {
-        _logger.LogInformation("Called GetAll in SpecializationController");
+        logger.LogInformation("Called GetAll in SpecializationController");
         try
         {
-            var specializations = await _service.GetAllSpecializationsAsync();
+            var specializations = await service.GetAllSpecializationsAsync();
             return Ok(specializations);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in GetAll");
+            logger.LogError(ex, "Error occurred in GetAll");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }
@@ -39,10 +34,10 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<SpecializationResponse>> GetById(Guid id)
     {
-        _logger.LogInformation("Called GetById in SpecializationController");
+        logger.LogInformation("Called GetById in SpecializationController");
         try
         {
-            var specialization = await _service.GetSpecializationAsync(id);
+            var specialization = await service.GetSpecializationAsync(id);
             if (specialization is null)
             {
                 return NotFound();
@@ -51,7 +46,7 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in GetById");
+            logger.LogError(ex, "Error occurred in GetById");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }
@@ -63,7 +58,7 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> Create([FromBody] SpecializationRequest specializationDto)
     {
-        _logger.LogInformation("Called Create in SpecializationController");
+        logger.LogInformation("Called Create in SpecializationController");
 
         if (specializationDto is null)
         {
@@ -72,12 +67,12 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
 
         try
         {
-            var entity = await _service.CreateSpecializationAsync(specializationDto);
+            var entity = await service.CreateSpecializationAsync(specializationDto);
             return CreatedAtAction(nameof(GetById), new {entity.Id}, entity);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in Create");
+            logger.LogError(ex, "Error occurred in Create");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }
@@ -90,7 +85,7 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<SpecializationResponse>> Update(Guid id, [FromBody] SpecializationRequest specializationDto)
     {
-        _logger.LogInformation("Called Update in SpecializationController");
+        logger.LogInformation("Called Update in SpecializationController");
 
         if (specializationDto is null)
         {
@@ -99,7 +94,7 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
 
         try
         {
-            var updated = await _service.UpdateSpecializationAsync(id, specializationDto);
+            var updated = await service.UpdateSpecializationAsync(id, specializationDto);
             if (updated is null)
             {
                 return NotFound();
@@ -109,7 +104,7 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in Update");
+            logger.LogError(ex, "Error occurred in Update");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }
@@ -121,16 +116,16 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> Delete(Guid id)
     {
-        _logger.LogInformation("Called Delete in SpecializationController");
+        logger.LogInformation("Called Delete in SpecializationController");
 
         try
         {
-            var deleted = await _service.DeleteSpecializationAsync(id);
+            var deleted = await service.DeleteSpecializationAsync(id);
             return NoContent();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in Delete");
+            logger.LogError(ex, "Error occurred in Delete");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }

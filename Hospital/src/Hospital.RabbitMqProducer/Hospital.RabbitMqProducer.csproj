@@ -12,10 +12,12 @@
     <PackageReference Include="Bogus" Version="35.6.5" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.ServiceDiscovery" Version="10.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Hospital.Contracts\Hospital.Contracts.csproj" />
+    <ProjectReference Include="..\Hospital.Domain\Hospital.Domain.csproj" />
   </ItemGroup>
 
 </Project>

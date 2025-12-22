@@ -1,33 +1,27 @@
-﻿using Hospital.Application.Mappers;
+﻿using Hospital.Application.Services.Abstractions;
 using Hospital.Contracts;
-using Hospital.Domain.Models;
-using Hospital.Application.Services.Abstractions;
-
 using Microsoft.AspNetCore.Mvc;
 namespace Hospital.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 public class AppointmentsController(ILogger<AppointmentsController> logger, IAppointmentService service) : ControllerBase
-{
-    private readonly ILogger<AppointmentsController> _logger = logger;
-    private readonly IAppointmentService _service = service;
-
+{    
     /// <summary>Returns all appointments.</summary>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<List<AppointmentResponse>>> GetAll()
     {
-        _logger.LogInformation("Called GetAll in AppointmentController");
+        logger.LogInformation("Called GetAll in AppointmentController");
         try
         {
-            var appointments = await _service.GetAllAppointmentsAsync();            
+            var appointments = await service.GetAllAppointmentsAsync();            
             return Ok(appointments);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in GetAll");
+            logger.LogError(ex, "Error occurred in GetAll");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }
@@ -39,10 +33,10 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<AppointmentResponse>> GetById(Guid id)
     {
-        _logger.LogInformation("Called GetById in AppointmentController");
+        logger.LogInformation("Called GetById in AppointmentController");
         try
         {
-            var appointment = await _service.GetAppointmentAsync(id);
+            var appointment = await service.GetAppointmentAsync(id);
             if (appointment is null)
             {
                 return NotFound();
@@ -51,7 +45,7 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in GetById");
+            logger.LogError(ex, "Error occurred in GetById");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }
@@ -63,7 +57,7 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> Create([FromBody] AppointmentRequest AppointmentDto)
     {
-        _logger.LogInformation("Called Create in AppointmentController");
+        logger.LogInformation("Called Create in AppointmentController");
 
         if (AppointmentDto is null)
         {
@@ -72,12 +66,12 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
 
         try
         {
-            var entity = await _service.CreateAppointmentAsync(AppointmentDto);
+            var entity = await service.CreateAppointmentAsync(AppointmentDto);
             return CreatedAtAction(nameof(GetById), new {entity.Id}, entity);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in Create");
+            logger.LogError(ex, "Error occurred in Create");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }
@@ -90,7 +84,7 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<AppointmentResponse>> Update(Guid id, [FromBody] AppointmentRequest AppointmentDto)
     {
-        _logger.LogInformation("Called Update in AppointmentController");
+        logger.LogInformation("Called Update in AppointmentController");
 
         if (AppointmentDto is null)
         {
@@ -99,7 +93,7 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
 
         try
         {
-            var updated = await _service.UpdateAppointmentAsync(id, AppointmentDto);
+            var updated = await service.UpdateAppointmentAsync(id, AppointmentDto);
             if (updated is null)
             {
                 return NotFound();
@@ -109,7 +103,7 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in Update");
+            logger.LogError(ex, "Error occurred in Update");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }
@@ -121,16 +115,16 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> Delete(Guid id)
     {
-        _logger.LogInformation("Called Delete in AppointmentController");
+        logger.LogInformation("Called Delete in AppointmentController");
 
         try
         {
-            var deleted = await _service.DeleteAppointmentAsync(id);
+            var deleted = await service.DeleteAppointmentAsync(id);
             return NoContent();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred in Delete");
+            logger.LogError(ex, "Error occurred in Delete");
             return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error");
         }
     }

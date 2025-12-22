@@ -30,5 +30,4 @@ builder.AddProject<Projects.Hospital_RabbitMqProducer>("RabbitMqProducer")
     .WaitFor(consumer);
     
 
-
 builder.Build().Run();
