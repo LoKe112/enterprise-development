@@ -9,6 +9,7 @@ namespace Hospital.Api.Controllers;
 public class PatientsController(ILogger<PatientsController> logger, IPatientService service) : ControllerBase
 {
     /// <summary>Returns all patients.</summary>
+    /// <returns>A list of all patients in the system.</returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -27,7 +28,9 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
         }
     }
 
-    /// <summary>Returns a Patient by Id.</summary>
+    /// <summary>Returns a patient by their unique identifier.</summary>
+    /// <param name="id">The unique identifier of the patient to retrieve.</param>
+    /// <returns>The patient with the specified identifier, if found.</returns>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -51,7 +54,9 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
         }
     }
 
-    /// <summary>Creates a new Patient.</summary>
+    /// <summary>Creates a new patient.</summary>
+    /// <param name="PatientDto">The patient data to create.</param>
+    /// <returns>The newly created patient with its assigned identifier.</returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -77,7 +82,10 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
         }
     }
 
-    /// <summary>Updates a Patient by Id.</summary>
+    /// <summary>Updates an existing patient by their identifier.</summary>
+    /// <param name="id">The unique identifier of the patient to update.</param>
+    /// <param name="PatientDto">The updated patient data.</param>
+    /// <returns>The updated patient, if found.</returns>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -109,7 +117,9 @@ public class PatientsController(ILogger<PatientsController> logger, IPatientServ
         }
     }
 
-    /// <summary>Deletes a Patient by Id.</summary>
+    /// <summary>Deletes a patient by their identifier.</summary>
+    /// <param name="id">The unique identifier of the patient to delete.</param>
+    /// <returns>No content if the deletion was successful.</returns>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

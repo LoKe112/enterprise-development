@@ -7,8 +7,9 @@ namespace Hospital.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class AppointmentsController(ILogger<AppointmentsController> logger, IAppointmentService service) : ControllerBase
-{    
+{
     /// <summary>Returns all appointments.</summary>
+    /// <returns>A list of all appointments in the system.</returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -27,7 +28,9 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
         }
     }
 
-    /// <summary>Returns a Appointment by Id.</summary>
+    /// <summary>Returns an appointment by its unique identifier.</summary>
+    /// <param name="id">The unique identifier of the appointment to retrieve.</param>
+    /// <returns>The appointment with the specified identifier, if found.</returns>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -51,7 +54,9 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
         }
     }
 
-    /// <summary>Creates a new Appointment.</summary>
+    /// <summary>Creates a new appointment.</summary>
+    /// <param name="AppointmentDto">The appointment data to create.</param>
+    /// <returns>The newly created appointment with its assigned identifier.</returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -77,7 +82,10 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
         }
     }
 
-    /// <summary>Updates a Appointment by Id.</summary>
+    /// <summary>Updates an existing appointment by its identifier.</summary>
+    /// <param name="id">The unique identifier of the appointment to update.</param>
+    /// <param name="AppointmentDto">The updated appointment data.</param>
+    /// <returns>The updated appointment, if found.</returns>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -109,7 +117,9 @@ public class AppointmentsController(ILogger<AppointmentsController> logger, IApp
         }
     }
 
-    /// <summary>Deletes a Appointment by Id.</summary>
+    /// <summary>Deletes an appointment by its identifier.</summary>
+    /// <param name="id">The unique identifier of the appointment to delete.</param>
+    /// <returns>No content if the deletion was successful.</returns>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -8,7 +8,8 @@ namespace Hospital.Api.Controllers;
 [ApiController]
 public class SpecializationsController(ILogger<SpecializationsController> logger, ISpecializationService service) : ControllerBase
 {
-    /// <summary>Returns all specializations.</summary>
+    /// <summary>Returns all medical specializations.</summary>
+    /// <returns>A list of all medical specializations in the system.</returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -27,7 +28,9 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
         }
     }
 
-    /// <summary>Returns a specialization by Id.</summary>
+    /// <summary>Returns a medical specialization by its unique identifier.</summary>
+    /// <param name="id">The unique identifier of the specialization to retrieve.</param>
+    /// <returns>The specialization with the specified identifier, if found.</returns>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -51,7 +54,9 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
         }
     }
 
-    /// <summary>Creates a new specialization.</summary>
+    /// <summary>Creates a new medical specialization.</summary>
+    /// <param name="specializationDto">The specialization data to create.</param>
+    /// <returns>The newly created specialization with its assigned identifier.</returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -77,7 +82,10 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
         }
     }
 
-    /// <summary>Updates a specialization by Id.</summary>
+    /// <summary>Updates an existing medical specialization by its identifier.</summary>
+    /// <param name="id">The unique identifier of the specialization to update.</param>
+    /// <param name="specializationDto">The updated specialization data.</param>
+    /// <returns>The updated specialization, if found.</returns>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -109,7 +117,9 @@ public class SpecializationsController(ILogger<SpecializationsController> logger
         }
     }
 
-    /// <summary>Deletes a specialization by Id.</summary>
+    /// <summary>Deletes a medical specialization by its identifier.</summary>
+    /// <param name="id">The unique identifier of the specialization to delete.</param>
+    /// <returns>No content if the deletion was successful.</returns>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

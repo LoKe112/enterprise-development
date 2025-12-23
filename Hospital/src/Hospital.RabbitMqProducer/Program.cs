@@ -12,7 +12,7 @@ builder.Services.AddServiceDiscovery();
 
 builder.Services.AddHttpClient("hospital-api", client =>
 {
-    client.BaseAddress = new Uri("https+http://hospital-api");   
+    client.BaseAddress = new ("https+http://hospital-api");  
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 }).AddServiceDiscovery();
 

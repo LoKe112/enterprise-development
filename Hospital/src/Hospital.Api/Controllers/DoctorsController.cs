@@ -9,6 +9,7 @@ namespace Hospital.Api.Controllers;
 public class DoctorsController(ILogger<DoctorsController> logger, IDoctorService service) : ControllerBase
 {
     /// <summary>Returns all doctors.</summary>
+    /// <returns>A list of all doctors in the system.</returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -27,7 +28,9 @@ public class DoctorsController(ILogger<DoctorsController> logger, IDoctorService
         }
     }
 
-    /// <summary>Returns a doctor by Id.</summary>
+    /// <summary>Returns a doctor by their unique identifier.</summary>
+    /// <param name="id">The unique identifier of the doctor to retrieve.</param>
+    /// <returns>The doctor with the specified identifier, if found.</returns>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -52,6 +55,8 @@ public class DoctorsController(ILogger<DoctorsController> logger, IDoctorService
     }
 
     /// <summary>Creates a new doctor.</summary>
+    /// <param name="doctorDto">The doctor data to create.</param>
+    /// <returns>The newly created doctor with its assigned identifier.</returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -77,7 +82,10 @@ public class DoctorsController(ILogger<DoctorsController> logger, IDoctorService
         }
     }
 
-    /// <summary>Updates a doctor by Id.</summary>
+    /// <summary>Updates an existing doctor by their identifier.</summary>
+    /// <param name="id">The unique identifier of the doctor to update.</param>
+    /// <param name="doctorDto">The updated doctor data.</param>
+    /// <returns>The updated doctor, if found.</returns>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -109,7 +117,9 @@ public class DoctorsController(ILogger<DoctorsController> logger, IDoctorService
         }
     }
 
-    /// <summary>Deletes a doctor by Id.</summary>
+    /// <summary>Deletes a doctor by their identifier.</summary>
+    /// <param name="id">The unique identifier of the doctor to delete.</param>
+    /// <returns>No content if the deletion was successful.</returns>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

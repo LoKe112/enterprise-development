@@ -1,8 +1,7 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var sql = builder.AddMySql("db")
-    .WithLifetime(ContainerLifetime.Persistent);
-
+var sql = builder.AddMySql("db");
+    
 var db = sql.AddDatabase("HospitalDatabase");
 
 var api = builder.AddProject<Projects.Hospital_Api>("hospital-api")
@@ -14,7 +13,6 @@ var password = builder.AddParameter("password", secret: true);
 
 var rabbitMq = builder.AddRabbitMQ("RabbitMQ", username, password)
     .WithManagementPlugin();
-
 
 var consumer = builder.AddProject<Projects.Hospital_RabbitMqConsumer>("RabbitMqConsumer")
     .WithReference(rabbitMq)
@@ -29,5 +27,4 @@ builder.AddProject<Projects.Hospital_RabbitMqProducer>("RabbitMqProducer")
     .WaitFor(rabbitMq)
     .WaitFor(consumer);
     
-
 builder.Build().Run();

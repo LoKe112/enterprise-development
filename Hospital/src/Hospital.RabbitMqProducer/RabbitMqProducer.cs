@@ -67,13 +67,13 @@ internal sealed class RabbitMqProducer(
     /// </summary>
     private async Task PublishBatchAsync(IChannel channel, CancellationToken ct)
     {
-        var specializations = dataGenerator.GenerateSpecializations(5);
+        var specializations = DataGenerator.GenerateSpecializations(5);
         await PublishAsync(channel, RabbitQueues.Specializations, specializations, ct);
 
         var doctors = await dataGenerator.GenerateDoctors(10);
         await PublishAsync(channel, RabbitQueues.Doctors, doctors, ct);
 
-        var patients = dataGenerator.GeneratePatients(20);
+        var patients = DataGenerator.GeneratePatients(20);
         await PublishAsync(channel, RabbitQueues.Patients, patients, ct);
 
         var appointments = await dataGenerator.GenerateAppointments(30);

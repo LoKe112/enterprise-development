@@ -8,17 +8,16 @@ namespace Hospital.RabbitMqProducer;
 
 internal class DataGenerator(IHttpClientFactory factory)
 {
-    private static JsonSerializerOptions _jsonSerializerOptions = new()
+    private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         Converters = 
         {
             new JsonStringEnumConverter()
         }
-
     };
 
-    private readonly List<string> _specializatons =
+    private static readonly List<string> _specializatons =
         [
             "Terapevt",
             "Lor",
@@ -27,7 +26,7 @@ internal class DataGenerator(IHttpClientFactory factory)
         ];
 
     public static List<Guid> SpecializationIds { get; } =
-[
+    [
         Guid.Parse("153922c2-d6b3-45b4-a3d3-a4e8f2b6c36b"),
         Guid.Parse("84300ed6-61d2-4dca-bd2c-cb5231c3580c"),
         Guid.Parse("27bcf4af-b769-4593-98c1-c27a716ee15c"),
@@ -36,7 +35,7 @@ internal class DataGenerator(IHttpClientFactory factory)
         Guid.Parse("c71552c5-4b28-4f0c-a62c-ac131a519059"),
         Guid.Parse("acef342c-afab-46f1-8405-64a47d52ae94"),
         Guid.Parse("c21f32c0-7e92-4f30-b563-ead686408d99")
-];
+    ];
 
     public static List<Guid> PatientIds { get; } =
     [
@@ -132,7 +131,7 @@ internal class DataGenerator(IHttpClientFactory factory)
 
             specializationIds = specializations?.Select(x => x.Id).ToList() ?? DoctorIds;
         }
-        catch
+        catch 
         {
             specializationIds = SpecializationIds;
         }
@@ -155,7 +154,7 @@ internal class DataGenerator(IHttpClientFactory factory)
         return faker.Generate(count);
     }
 
-    public List<PatientRequest> GeneratePatients(int count)
+    public static List<PatientRequest> GeneratePatients(int count)
     {
         Faker<PatientRequest> faker = new Faker<PatientRequest>()
             .RuleFor(x => x.DateOfBirth, f => f.Date.BetweenDateOnly(
@@ -171,7 +170,8 @@ internal class DataGenerator(IHttpClientFactory factory)
 
         return faker.Generate(count);
     }
-    public List<SpecializationRequest> GenerateSpecializations(int count)
+
+    public static List<SpecializationRequest> GenerateSpecializations(int count)
     {
         Faker<SpecializationRequest> faker = new Faker<SpecializationRequest>()
             .RuleFor(x => x.Name, f => f.PickRandom(_specializatons));
