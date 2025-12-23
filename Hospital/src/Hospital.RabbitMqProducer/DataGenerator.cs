@@ -92,7 +92,7 @@ internal class DataGenerator(IHttpClientFactory factory)
 
             doctorIds = doctors?.Select(x => x.Id).ToList() ?? DoctorIds;
         }
-        catch (Exception ex) 
+        catch 
         {
             doctorIds = DoctorIds;
         }
@@ -105,7 +105,7 @@ internal class DataGenerator(IHttpClientFactory factory)
 
             patientIds = patients?.Select(x => x.Id).ToList() ?? PatientIds;
         }
-        catch (Exception ex)
+        catch 
         {
             patientIds = PatientIds;
         }
@@ -136,9 +136,6 @@ internal class DataGenerator(IHttpClientFactory factory)
         {
             specializationIds = SpecializationIds;
         }
-
-        
-
         Faker<DoctorRequest> faker = new Faker<DoctorRequest>()
             .RuleFor(x => x.YearOfBirth, f => f.Random.Int(1950, 2001))
             .RuleFor(x => x.PassportNumber, f => f.Random.AlphaNumeric(10))
@@ -157,10 +154,13 @@ internal class DataGenerator(IHttpClientFactory factory)
             .RuleFor(x => x.SpecializationId, f => f.PickRandom(specializationIds));
         return faker.Generate(count);
     }
-    public Task<List<PatientRequest>> GeneratePatients(int count)
+
+    public List<PatientRequest> GeneratePatients(int count)
     {
         Faker<PatientRequest> faker = new Faker<PatientRequest>()
-            .RuleFor(x => x.DateOfBirth, f => f.Date.BetweenDateOnly(DateOnly.FromDateTime(DateTime.Now.AddYears(-60)), DateOnly.FromDateTime(DateTime.Now.AddYears(-18))))
+            .RuleFor(x => x.DateOfBirth, f => f.Date.BetweenDateOnly(
+                DateOnly.FromDateTime(DateTime.Now.AddYears(-60)),
+                DateOnly.FromDateTime(DateTime.Now.AddYears(-18))))
             .RuleFor(x => x.RhFactor, f => f.PickRandom<RhFactorDto>())
             .RuleFor(x => x.Address, f => f.Address.StreetAddress())
             .RuleFor(x => x.BloodGroup, f => f.PickRandom<BloodGroupDto>())
@@ -168,12 +168,14 @@ internal class DataGenerator(IHttpClientFactory factory)
             .RuleFor(x => x.Gender, f => f.PickRandom<GenderDto>())
             .RuleFor(x => x.PhoneNumber, f => f.Phone.PhoneNumber())
             .RuleFor(x => x.PassportNumber, f => f.Random.AlphaNumeric(10));
-        return Task.FromResult(faker.Generate(count));
+
+        return faker.Generate(count);
     }
-    public Task<List<SpecializationRequest>> GenerateSpecializations(int count)
+    public List<SpecializationRequest> GenerateSpecializations(int count)
     {
         Faker<SpecializationRequest> faker = new Faker<SpecializationRequest>()
             .RuleFor(x => x.Name, f => f.PickRandom(_specializatons));
-        return Task.FromResult(faker.Generate(count));
+
+        return faker.Generate(count);
     }
 }

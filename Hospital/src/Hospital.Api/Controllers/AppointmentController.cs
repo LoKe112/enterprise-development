@@ -1,6 +1,7 @@
 ﻿using Hospital.Application.Services.Abstractions;
 using Hospital.Contracts;
 using Microsoft.AspNetCore.Mvc;
+
 namespace Hospital.Api.Controllers;
 
 [Route("api/[controller]")]
